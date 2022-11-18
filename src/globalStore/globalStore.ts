@@ -85,6 +85,7 @@ export const signUpRequest = async (evt: Event) => {
       store.dispatch(nameInputValChange(''));
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
+      window.location.reload();
     } else {
       alert(`Error ${data.statusCode}: ${data.message}`);
     }
@@ -114,10 +115,10 @@ export const signInRequest = async (evt: Event) => {
     if(data.token){
       alert("Successful sign in!");
       localStorage.setItem('token', data.token);
-      localStorage.setItem('login', data.login);
+      localStorage.setItem('login', bodyRequest.login);
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
-      // setTimeout(window.location.reload, 1000);
+      window.location.reload();
     } else {
       alert(`Error ${data.statusCode}: ${data.message}`);
     }
