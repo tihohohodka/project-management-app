@@ -23,15 +23,13 @@
   font-style: italic;
 }
 
-.login, .password {
-  margin: 0 auto 20px auto;
-}
-
-.login,
-.password {
+.nameInp,
+.loginInp,
+.passwordInp {
   display: flex;
   justify-content: space-between;
   width: 430px;
+  margin: 0 auto 20px auto;
 }
 
 .modalsign input,

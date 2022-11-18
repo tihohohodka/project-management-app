@@ -11,7 +11,8 @@ import {
   buttonSignBtnChange,
   RequsetFuncChange,
   hiddenNameInpChange,
-  signUpRequest
+  signUpRequest,
+  signInRequest
 } from '../globalStore/globalStore';
 import './signIn-signUp.css';
 
@@ -41,12 +42,6 @@ function SignInSignUp() {
     dispatch(RequsetFuncChange({value: signUpRequest}))
   }, [])
 
-  function signInRequest(evt: Event) {
-    evt.preventDefault();
-    console.log("Login");
-    return undefined;
-  }
-
   function signTabToggle() {
     if(titletextSign === 'Sign In'){
       dispatch(titletextSignChange('Sign Up'));
@@ -55,6 +50,7 @@ function SignInSignUp() {
       dispatch(autoCompChange('new-password'));
       dispatch(buttonSignBtnChange('Sign Up'));
       dispatch(RequsetFuncChange({value: signUpRequest}));
+      dispatch(hiddenNameInpChange(true));
     } else {
       dispatch(titletextSignChange('Sign In'));
       dispatch(askSignChange('Not registered?  '));
@@ -62,6 +58,7 @@ function SignInSignUp() {
       dispatch(autoCompChange('current-password'));
       dispatch(buttonSignBtnChange('Sign In'));
       dispatch(RequsetFuncChange({value: signInRequest}));
+      dispatch(hiddenNameInpChange(false));
     }
     return undefined;
   }
@@ -70,13 +67,15 @@ function SignInSignUp() {
     <div className="modalsign">
       <h2>{titletextSign}</h2>
       <form>
-        <div className="name">
-          <label>Enter name: </label><input placeholder="Name" type="text" autoComplete="username" value={nameInputVal} onChange={(e) => dispatch(nameInputValChange(e.target.value))}></input>
-        </div>
-        <div className="login">
+        {hiddenNameInp ? (
+          <div className="nameInp">
+            <label>Enter name: </label><input placeholder="Name" type="text" autoComplete="username" value={nameInputVal} onChange={(e) => dispatch(nameInputValChange(e.target.value))}></input>
+          </div>
+        ) : undefined}
+        <div className="loginInp">
           <label>Enter login: </label><input placeholder="Login" type="text" autoComplete="username" value={loginInputVal} onChange={(e) => dispatch(loginInputValChange(e.target.value))}></input>
         </div>
-        <div className="password">
+        <div className="passwordInp">
           <label>Enter password: </label><input placeholder="Password" type="password" autoComplete={autoComp} value={passwordInputVal} onChange={(e) => dispatch(passwordInputValChange(e.target.value))}></input>
         </div>
         <button onClick={RequsetFunc.value as unknown as React.MouseEventHandler<HTMLButtonElement>}>{buttonSignBtn}</button>

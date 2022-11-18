@@ -63,72 +63,76 @@ export const store = configureStore({
     }),
 })
 
-export const signUpRequest = createAsyncThunk(
-  'appstorage/sigup',
-  async (evt: Event) => {
-    evt.preventDefault();
-    try{
-      const res = await fetch('https://kanban-server-production.up.railway.app/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: `{
-          "name": ${store.getState().registrwindw.nameInputVal},
-          "login": ${store.getState().registrwindw.loginInputVal},
-          "password": ${store.getState().registrwindw.passwordInputVal}
-        }`
-      });
-      const data = await res.json();
-
-      if(data._id){
-        alert("Successful registration!");
-        store.dispatch(nameInputValChange(''));
-        store.dispatch(loginInputValChange(''));
-        store.dispatch(passwordInputValChange(''));
-      } else {
-        alert(`Error ${data.statusCode}: ${data.message}`);
-      }
-      console.log(data);
-    } catch {
-      alert( `Error: reason unknown`);
-    }
-    
+export const signUpRequest = async (evt: Event) => {
+  evt.preventDefault();
+  const bodyRequest = {
+    "name": store.getState().registrwindw.nameInputVal,
+    "login": store.getState().registrwindw.loginInputVal,
+    "password": store.getState().registrwindw.passwordInputVal
   }
-);
-
-export const signInRequest = createAsyncThunk(
-  'appstorage/sigin',
-  async (evt: Event) => {
-    evt.preventDefault();
-    try{
-      const res = await fetch('https://kanban-server-production.up.railway.app/auth/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: `{
-          "login": ${store.getState().registrwindw.loginInputVal},
-          "password": ${store.getState().registrwindw.passwordInputVal}
-        }`
-      });
-      const data = await res.json();
-
-      if(data.token){
-        alert("Successful sign in!");
-        localStorage.setItem('token', data.token);
-        store.dispatch(loginInputValChange(''));
-        store.dispatch(passwordInputValChange(''));
-      } else {
-        alert(`Error ${data.statusCode}: ${data.message}`);
-      }
-      console.log(data);
-    } catch {
-      alert( `Error: reason unknown`);
+  try{
+    const res = await fetch('https://kanban-server-production.up.railway.app/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyRequest)
+    });
+    const data = await res.json();
+    console.log(data);
+    if(data._id){
+      alert("Successful registration!");
+      store.dispatch(nameInputValChange(''));
+      store.dispatch(loginInputValChange(''));
+      store.dispatch(passwordInputValChange(''));
+    } else {
+      alert(`Error ${data.statusCode}: ${data.message}`);
     }
-    
+    console.log(data);
+  } catch {
+    alert( `Error: reason unknown`);
   }
-);
+};
+
+export const signInRequest = async (evt: Event) => {
+  evt.preventDefault();
+  const bodyRequest = {
+    login: store.getState().registrwindw.loginInputVal,
+    password: store.getState().registrwindw.passwordInputVal
+  }
+  console.log(store.getState().registrwindw.loginInputVal);
+  try{
+    const res = await fetch('https://kanban-server-production.up.railway.app/auth/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyRequest)
+    });
+    const data = await res.json();
+    console.log(data);
+    if(data.token){
+      alert("Successful sign in!");
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('login', data.login);
+      store.dispatch(loginInputValChange(''));
+      store.dispatch(passwordInputValChange(''));
+      // setTimeout(window.location.reload, 1000);
+    } else {
+      alert(`Error ${data.statusCode}: ${data.message}`);
+    }
+    console.log(data);
+  } catch {
+    alert( `Error: reason unknown`);
+  }
+}
+
+export function logOut() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('login');
+  localStorage.clear();
+  window.location.reload();
+}
 
 
 store.subscribe(() => console.log(store.getState()))
