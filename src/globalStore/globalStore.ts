@@ -13,6 +13,7 @@ export const appSlice = createSlice({
     buttonSignBtn: 'Sign Up',
     autoComp: '',
     RequsetFunc: { value: () => undefined },
+    hiddenNameInp: true
   },
   reducers: {
     nameInputValChange: (state, action) => {
@@ -42,12 +43,15 @@ export const appSlice = createSlice({
     RequsetFuncChange: (state, action) => {
       state.RequsetFunc = action.payload;
     },
+    hiddenNameInpChange: (state, action) => {
+      state.hiddenNameInp = action.payload;
+    },
   }
 })
 
 
 
-export const { nameInputValChange, loginInputValChange, passwordInputValChange, titletextSignChange, askSignChange, hrefSignUpChange, autoCompChange, buttonSignBtnChange, RequsetFuncChange } = appSlice.actions
+export const { nameInputValChange, loginInputValChange, passwordInputValChange, titletextSignChange, askSignChange, hrefSignUpChange, autoCompChange, buttonSignBtnChange, RequsetFuncChange,hiddenNameInpChange } = appSlice.actions
 
 export const store = configureStore({
   reducer: {
@@ -59,7 +63,72 @@ export const store = configureStore({
     }),
 })
 
+export const signUpRequest = createAsyncThunk(
+  'appstorage/sigup',
+  async (evt: Event) => {
+    evt.preventDefault();
+    try{
+      const res = await fetch('https://kanban-server-production.up.railway.app/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: `{
+          "name": ${store.getState().registrwindw.nameInputVal},
+          "login": ${store.getState().registrwindw.loginInputVal},
+          "password": ${store.getState().registrwindw.passwordInputVal}
+        }`
+      });
+      const data = await res.json();
 
+      if(data._id){
+        alert("Successful registration!");
+        store.dispatch(nameInputValChange(''));
+        store.dispatch(loginInputValChange(''));
+        store.dispatch(passwordInputValChange(''));
+      } else {
+        alert(`Error ${data.statusCode}: ${data.message}`);
+      }
+      console.log(data);
+    } catch {
+      alert( `Error: reason unknown`);
+    }
+    
+  }
+);
+
+export const signInRequest = createAsyncThunk(
+  'appstorage/sigin',
+  async (evt: Event) => {
+    evt.preventDefault();
+    try{
+      const res = await fetch('https://kanban-server-production.up.railway.app/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: `{
+          "login": ${store.getState().registrwindw.loginInputVal},
+          "password": ${store.getState().registrwindw.passwordInputVal}
+        }`
+      });
+      const data = await res.json();
+
+      if(data.token){
+        alert("Successful sign in!");
+        localStorage.setItem('token', data.token);
+        store.dispatch(loginInputValChange(''));
+        store.dispatch(passwordInputValChange(''));
+      } else {
+        alert(`Error ${data.statusCode}: ${data.message}`);
+      }
+      console.log(data);
+    } catch {
+      alert( `Error: reason unknown`);
+    }
+    
+  }
+);
 
 
 store.subscribe(() => console.log(store.getState()))
