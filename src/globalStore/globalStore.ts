@@ -1,5 +1,6 @@
 import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
-
+import AuthReducer from '../features/reduxAuth'
+import langReducer from '../features/reduxLang'
 export const appSlice = createSlice({
   name: 'appstorage',
   initialState: {
@@ -56,6 +57,8 @@ export const { nameInputValChange, loginInputValChange, passwordInputValChange, 
 export const store = configureStore({
   reducer: {
     registrwindw: appSlice.reducer,
+    auth: AuthReducer,
+    lang: langReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
