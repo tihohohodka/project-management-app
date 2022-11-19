@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
 .App {
+  background-color: #dbe5ff;
   text-align: center;
 }
-
+a{
+  text-decoration:none;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
