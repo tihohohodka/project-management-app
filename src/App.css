@@ -3,6 +3,10 @@
 .App {
   background-color: #dbe5ff;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap:500px;
+  justify-content: space-around;
 }
 a{
   text-decoration:none;

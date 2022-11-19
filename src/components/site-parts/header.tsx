@@ -2,6 +2,7 @@ import React from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { changeLang } from "../../features/reduxLang";
 import logo from "../../media/pics/logo192.png";
+import { Routes, Route, Link } from "react-router-dom";
 import "./header.css";
 let YOffset = 0;
 
@@ -23,22 +24,19 @@ export function Header() {
       {reduxAuth.Auth && (
         <div className="header-button-holder">
           {reduxLang.lang === "Russian" && (
-            <div className="header-button">Редактировать профиль</div>
+            <>
+              <div className="header-button">Редактировать профиль</div>
+              <div className="header-button">Создать борду</div>
+              <div className="header-button">Выйти</div>
+            </>
           )}
-          {reduxLang.lang === "Russian" && (
-            <div className="header-button">Создать борду</div>
-          )}
-          {reduxLang.lang === "Russian" && (
-            <div className="header-button">Выйти</div>
-          )}
+
           {reduxLang.lang === "English" && (
-            <div className="header-button">Edit Profile</div>
-          )}
-          {reduxLang.lang === "English" && (
-            <div className="header-button">Create new Board</div>
-          )}
-          {reduxLang.lang === "English" && (
-            <div className="header-button">Sign Out</div>
+            <>
+              <div className="header-button">Edit Profile</div>
+              <div className="header-button">Create new Board</div>
+              <div className="header-button">Sign Out</div>
+            </>
           )}
           <select
             id="genderSelect"
@@ -54,16 +52,24 @@ export function Header() {
       {!reduxAuth.Auth && (
         <div className="header-button-holder">
           {reduxLang.lang === "Russian" && (
-            <div className="header-button">Войти</div>
-          )}
-          {reduxLang.lang === "Russian" && (
-            <div className="header-button">Зарегистрироваться</div>
+            <>
+              <Link to="SignIn">
+                <div className="header-button">Войти</div>
+              </Link>
+              <Link to="SignIn">
+                <div className="header-button">Зарегистрироваться</div>
+              </Link>
+            </>
           )}
           {reduxLang.lang === "English" && (
-            <div className="header-button">Sign In</div>
-          )}
-          {reduxLang.lang === "English" && (
-            <div className="header-button">Sing Up</div>
+            <>
+              <Link to="SignIn">
+                <div className="header-button">Sign In</div>
+              </Link>
+              <Link to="SignIn">
+                <div className="header-button">Sing Up</div>
+              </Link>
+            </>
           )}
           <select
             id="genderSelect"
