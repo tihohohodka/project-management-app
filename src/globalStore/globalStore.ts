@@ -3,22 +3,26 @@ import { createSlice, configureStore } from '@reduxjs/toolkit';
 import AuthReducer from '../features/reduxAuth';
 import langReducer from '../features/reduxLang';
 import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
-export const appSlice = createSlice({
+export const SignInSignUpSlice = createSlice({
   name: 'appstorage',
   initialState: {
+    isSignUp: true,
     _id: '',
     nameInputVal: '',
     loginInputVal: '',
     passwordInputVal: '',
-    titletextSign: 'Sign Up',
-    askSign: 'Already registered?  ',
-    hrefSignUp: 'Click here to go to Sign In tab',
-    buttonSignBtn: 'Sign Up',
+    titletextSign: '',
+    askSign: '',
+    hrefSignUp: '',
+    buttonSignBtn: '',
     autoComp: '',
     RequsetFunc: { value: () => undefined },
     hiddenNameInp: true
   },
   reducers: {
+    isSignUpChange: (state, action) => {
+      state.isSignUp = action.payload;
+    },
     nameInputValChange: (state, action) => {
       state.nameInputVal = action.payload;
     },
@@ -54,11 +58,11 @@ export const appSlice = createSlice({
 
 
 
-export const { nameInputValChange, loginInputValChange, passwordInputValChange, titletextSignChange, askSignChange, hrefSignUpChange, autoCompChange, buttonSignBtnChange, RequsetFuncChange,hiddenNameInpChange } = appSlice.actions
+export const { nameInputValChange, loginInputValChange, passwordInputValChange, titletextSignChange, askSignChange, hrefSignUpChange, autoCompChange, buttonSignBtnChange, RequsetFuncChange, hiddenNameInpChange, isSignUpChange } = SignInSignUpSlice.actions
 
 export const store = configureStore({
   reducer: {
-    registrwindw: appSlice.reducer,
+    registrwindw: SignInSignUpSlice.reducer,
     auth: AuthReducer,
     lang: langReducer,
     toast: toastReducer,
@@ -120,7 +124,6 @@ export const signUpRequest = async (evt: Event) => {
     const data = await res.json()
       console.log(data);
       if(data._id){
-        openToast("Successful registration!");
         store.dispatch(nameInputValChange(''));
         store.dispatch(loginInputValChange(''));
         store.dispatch(passwordInputValChange(''));

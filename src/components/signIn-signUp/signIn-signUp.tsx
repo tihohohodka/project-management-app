@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   nameInputValChange,
   loginInputValChange,
@@ -13,6 +12,8 @@ import {
   hiddenNameInpChange,
   signUpRequest,
   signInRequest,
+  useAppSelector,
+  useAppDispatch,
 } from '../../globalStore/globalStore';
 import './signIn-signUp.css';
 
@@ -34,12 +35,29 @@ interface StateIntr {
 
 
 function SignInSignUp() {
-  const { nameInputVal, loginInputVal, passwordInputVal, titletextSign, askSign, hrefSignUp, buttonSignBtn, autoComp, RequsetFunc, hiddenNameInp} = useSelector((state: StateIntr) => state.registrwindw)
+  const { isSignUp, nameInputVal, loginInputVal, passwordInputVal, titletextSign, askSign, hrefSignUp, buttonSignBtn, autoComp, RequsetFunc, hiddenNameInp} = useAppSelector((state) => state.registrwindw)
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     dispatch(RequsetFuncChange({value: signUpRequest}))
+    if(isSignUp) {
+      dispatch(titletextSignChange('Sign Up'));
+      dispatch(askSignChange('Already registered?  '));
+      dispatch(hrefSignUpChange('Click here to go to Sign In tab'));
+      dispatch(autoCompChange('new-password'));
+      dispatch(buttonSignBtnChange('Sign Up'));
+      dispatch(RequsetFuncChange({value: signUpRequest}));
+      dispatch(hiddenNameInpChange(true));
+    } else {
+      dispatch(titletextSignChange('Sign In'));
+      dispatch(askSignChange('Not registered?  '));
+      dispatch(hrefSignUpChange('Click here to go to Sign Up page'));
+      dispatch(autoCompChange('current-password'));
+      dispatch(buttonSignBtnChange('Sign In'));
+      dispatch(RequsetFuncChange({value: signInRequest}));
+      dispatch(hiddenNameInpChange(false));
+    }
   }, [])
 
   function signTabToggle() {
