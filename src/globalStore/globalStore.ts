@@ -77,20 +77,10 @@ export const signUpRequest = async (evt: Event) => {
     })
 
     console.log(res);
-    if(res.status === 409){
-      console.log('dfdfdfdfdfd');
-      throw Error('Error 409: login already exist')
-    }
-    if(res.status === 400){
-      console.log('dfdfdfdfdfd');
-      throw Error('Error 400: Bad Request')
-    }
-    if(!res.ok){
-      throw Error('Unknown error')
-    }
+
     const data = await res.json()
       console.log(data);
-      if(data._id){
+      if(data.statusCode === 200){
         store.dispatch(nameInputValChange(''));
         store.dispatch(loginInputValChange(''));
         store.dispatch(passwordInputValChange(''));
@@ -119,18 +109,10 @@ export const signInRequest = async (evt: Event) => {
       },
       body: JSON.stringify(bodyRequest)
     });
-    if(res.status === 409){
-      throw Error('Error 409: login already exist')
-    }
-    if(res.status === 400){
-      throw Error('Error 400: Bad Request')
-    }
-    if(!res.ok){
-      throw Error('Unknown error')
-    }
+
     const data = await res.json();
     console.log(data);
-    if(data.token){
+    if(data.statusCode === 200){
       openToast("Successful sign in!");
       localStorage.setItem('token', data.token);
       localStorage.setItem('login', bodyRequest.login);
