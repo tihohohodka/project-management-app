@@ -1,6 +1,8 @@
-import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
-import AuthReducer from '../features/reduxAuth'
-import langReducer from '../features/reduxLang'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
+import AuthReducer from '../features/reduxAuth';
+import langReducer from '../features/reduxLang';
+import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
 export const appSlice = createSlice({
   name: 'appstorage',
   initialState: {
@@ -58,13 +60,34 @@ export const store = configureStore({
   reducer: {
     registrwindw: appSlice.reducer,
     auth: AuthReducer,
-    lang: langReducer
+    lang: langReducer,
+    toast: toastReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
 })
+
+export function openToast(message: string) {
+  store.dispatch(visibilityToastChange('toast toast-start'));
+  store.dispatch(descriptionToastChange(message));
+  setTimeout(store.dispatch, 3000, visibilityToastChange('toast toast-end'))
+  setTimeout(store.dispatch, 4000, visibilityToastChange('toast-hidden'));
+  setTimeout(store.dispatch, 4000, descriptionToastChange(''));
+}
+
+
+export function closeToast() {
+  store.dispatch(visibilityToastChange('toast toast-end'))
+  setTimeout(store.dispatch, 1000, visibilityToastChange('toast-hidden'));
+  setTimeout(store.dispatch, 1000, descriptionToastChange(''));
+}
+
+interface ressign {
+  statusCode: number;
+  message: string;
+}
 
 export const signUpRequest = async (evt: Event) => {
   evt.preventDefault();
@@ -73,30 +96,43 @@ export const signUpRequest = async (evt: Event) => {
     "login": store.getState().registrwindw.loginInputVal,
     "password": store.getState().registrwindw.passwordInputVal
   }
-  try{
+  try {
     const res = await fetch('https://kanban-server-production.up.railway.app/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(bodyRequest)
-    });
-    const data = await res.json();
-    console.log(data);
-    if(data._id){
-      alert("Successful registration!");
-      store.dispatch(nameInputValChange(''));
-      store.dispatch(loginInputValChange(''));
-      store.dispatch(passwordInputValChange(''));
-      window.location.reload();
-    } else {
-      alert(`Error ${data.statusCode}: ${data.message}`);
+    })
+
+    console.log(res);
+    if(res.status === 409){
+      console.log('dfdfdfdfdfd');
+      throw Error('Error 409: login already exist')
     }
-    console.log(data);
-  } catch {
-    alert( `Error: reason unknown`);
-  }
-};
+    if(res.status === 400){
+      console.log('dfdfdfdfdfd');
+      throw Error('Error 400: Bad Request')
+    }
+    if(!res.ok){
+      throw Error('Unknown error')
+    }
+    const data = await res.json()
+      console.log(data);
+      if(data._id){
+        openToast("Successful registration!");
+        store.dispatch(nameInputValChange(''));
+        store.dispatch(loginInputValChange(''));
+        store.dispatch(passwordInputValChange(''));
+        window.location.reload();
+      } else {
+        openToast('Error ' + data.statusCode + ':\n' + data.message)
+      }
+      console.log(data);
+    } catch(e) {
+      openToast((e as ressign).message);
+    }
+}
 
 export const signInRequest = async (evt: Event) => {
   evt.preventDefault();
@@ -113,21 +149,30 @@ export const signInRequest = async (evt: Event) => {
       },
       body: JSON.stringify(bodyRequest)
     });
+    if(res.status === 409){
+      throw Error('Error 409: login already exist')
+    }
+    if(res.status === 400){
+      throw Error('Error 400: Bad Request')
+    }
+    if(!res.ok){
+      throw Error('Unknown error')
+    }
     const data = await res.json();
     console.log(data);
     if(data.token){
-      alert("Successful sign in!");
+      openToast("Successful sign in!");
       localStorage.setItem('token', data.token);
       localStorage.setItem('login', bodyRequest.login);
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
       window.location.reload();
     } else {
-      alert(`Error ${data.statusCode}: ${data.message}`);
+      openToast('Error ' + data.statusCode + ':\n' + data.message);
     }
     console.log(data);
-  } catch {
-    alert( `Error: reason unknown`);
+  } catch (e) {
+    openToast((e as ressign).message);
   }
 }
 
@@ -137,6 +182,10 @@ export function logOut() {
   localStorage.clear();
   window.location.reload();
 }
+
+export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
+
+export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
 
 
 store.subscribe(() => console.log(store.getState()))

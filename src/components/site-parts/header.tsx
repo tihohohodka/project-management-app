@@ -1,9 +1,9 @@
 import React from "react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { changeLang } from "../../features/reduxLang";
 import logo from "../../media/pics/logo192.png";
 import { Routes, Route, Link } from "react-router-dom";
 import "./header.css";
+import { useAppDispatch, useAppSelector } from '../../globalStore/globalStore';
 let YOffset = 0;
 
 export function Header() {

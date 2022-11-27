@@ -1,18 +1,24 @@
 import React from "react";
 import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
 import "./App.css";
 import { Footer } from "./components/site-parts/footer";
 import { Header } from "./components/site-parts/header";
-import SignInSignUp from "./components/signIn-signUp";
-import { Routes, Route, Link } from "react-router-dom";
+import SignInSignUp from "./components/signIn-signUp/signIn-signUp";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import ToastWindow from './components/toast-window/toast-window';
+import { useAppDispatch } from './globalStore/globalStore';
+import { changeAuth } from './features/reduxAuth'
 function App() {
   return (
-    <Routes>
-      <Route path="*" element={<Unknown />} />
-      <Route path="/" element={<Home />} />
-      <Route path="SignIn" element={<SignInSignUp />} />
-    </Routes>
+    <BrowserRouter>
+      <ToastWindow />
+      <Routes>
+        <Route path="*" element={<Unknown />} />
+        <Route path="/" element={<Home />} />
+        <Route path="SignIn" element={<SignInSignUp />} />
+      </Routes>
+    </BrowserRouter>
+    
   );
 }
 export default App;

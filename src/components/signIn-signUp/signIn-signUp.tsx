@@ -12,8 +12,8 @@ import {
   RequsetFuncChange,
   hiddenNameInpChange,
   signUpRequest,
-  signInRequest
-} from '../globalStore/globalStore';
+  signInRequest,
+} from '../../globalStore/globalStore';
 import './signIn-signUp.css';
 
 interface StateIntr {
@@ -64,25 +64,27 @@ function SignInSignUp() {
   }
 
   return (
-    <div className="modalsign">
-      <h2>{titletextSign}</h2>
-      <form>
-        {hiddenNameInp ? (
-          <div className="nameInp">
-            <label>Enter name: </label><input placeholder="Name" type="text" autoComplete="username" value={nameInputVal} onChange={(e) => dispatch(nameInputValChange(e.target.value))}></input>
+    <div className="authpage">
+      <div className="modalsign">
+        <h2>{titletextSign}</h2>
+        <form>
+          {hiddenNameInp ? (
+            <div className="nameInp">
+              <label>Enter name: </label><input placeholder="Name" type="text" autoComplete="username" value={nameInputVal} onChange={(e) => dispatch(nameInputValChange(e.target.value))}></input>
+            </div>
+          ) : undefined}
+          <div className="loginInp">
+            <label>Enter login: </label><input placeholder="Login" type="text" autoComplete="username" value={loginInputVal} onChange={(e) => dispatch(loginInputValChange(e.target.value))}></input>
           </div>
-        ) : undefined}
-        <div className="loginInp">
-          <label>Enter login: </label><input placeholder="Login" type="text" autoComplete="username" value={loginInputVal} onChange={(e) => dispatch(loginInputValChange(e.target.value))}></input>
-        </div>
-        <div className="passwordInp">
-          <label>Enter password: </label><input placeholder="Password" type="password" autoComplete={autoComp} value={passwordInputVal} onChange={(e) => dispatch(passwordInputValChange(e.target.value))}></input>
-        </div>
-        <button onClick={RequsetFunc.value as unknown as React.MouseEventHandler<HTMLButtonElement>}>{buttonSignBtn}</button>
-        <div className="go-sign-up-tab"><span>{askSign}</span><span className="href-sign-up" onClick={signTabToggle}>{hrefSignUp}</span></div>
-      </form>
-
+          <div className="passwordInp">
+            <label>Enter password: </label><input placeholder="Password" type="password" autoComplete={autoComp} value={passwordInputVal} onChange={(e) => dispatch(passwordInputValChange(e.target.value))}></input>
+          </div>
+          <button onClick={RequsetFunc.value as unknown as React.MouseEventHandler<HTMLButtonElement>}>{buttonSignBtn}</button>
+          <div className="go-sign-up-tab"><span>{askSign}</span><span className="href-sign-up" onClick={signTabToggle}>{hrefSignUp}</span></div>
+        </form>
+      </div>
     </div>
+
   );
 }
 
