@@ -3,7 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Footer } from "./components/site-parts/footer";
 import { Header } from "./components/site-parts/header";
-import SignInSignUp from "./components/signIn-signUp/signIn-signUp";
+import SignUp from "./components/signIn-signUp/signUp";
+import SignIn from "./components/signIn-signUp/signIn";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import ToastWindow from './components/toast-window/toast-window';
 import { openToast, useAppDispatch } from './globalStore/globalStore';
@@ -22,7 +23,8 @@ function App() {
       <Routes>
         <Route path="*" element={<Unknown />} />
         <Route path="/" element={<Home />} />
-        <Route path="SignIn" element={ localStorage.getItem('token') ? <Navigate to="/" /> : <SignInSignUp /> } />
+        <Route path="SignIn" element={ localStorage.getItem('token') ? <Navigate to="/" /> : <SignIn /> } />
+        <Route path="SignUp" element={ localStorage.getItem('token') ? <Navigate to="/" /> : <SignUp /> } />
       </Routes>
     </BrowserRouter>
     

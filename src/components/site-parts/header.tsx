@@ -3,14 +3,13 @@ import { changeLang } from "../../features/reduxLang";
 import logo from "../../media/pics/logo192.png";
 import { Routes, Route, Link } from "react-router-dom";
 import "./header.css";
-import { useAppDispatch, useAppSelector, logOut, isSignUpChange } from '../../globalStore/globalStore';
+import { useAppDispatch, useAppSelector, logOut } from '../../globalStore/globalStore';
 let YOffset = 0;
 
 export function Header() {
   const dispatch = useAppDispatch();
   const reduxAuth = useAppSelector((state) => state.auth);
   const reduxLang = useAppSelector((state) => state.lang);
-  const isSignUp = useAppSelector((state) => state.registrwindw.isSignUp);
   document.addEventListener("scroll", (event) => {
     if (window.pageYOffset >= 300) {
       document.querySelector("header")?.classList.add("scrolled");
@@ -54,28 +53,20 @@ export function Header() {
         <div className="header-button-holder">
           {reduxLang.lang === "Russian" && (
             <>
-              <Link to="SignIn" onClick={()=>{
-                if(isSignUp) dispatch(isSignUpChange(false))
-                }}>
+              <Link to="/SignIn">
                 <div className="header-button">Войти</div>
               </Link>
-              <Link to="SignIn" onClick={()=>{
-                if(!isSignUp) dispatch(isSignUpChange(true))
-                }}>
+              <Link to="/SignUp">
                 <div className="header-button">Зарегистрироваться</div>
               </Link>
             </>
           )}
           {reduxLang.lang === "English" && (
             <>
-              <Link to="SignIn" onClick={()=>{
-                if(isSignUp) dispatch(isSignUpChange(false))
-                }}>
+              <Link to="/SignIn">
                 <div className="header-button">Sign In</div>
               </Link>
-              <Link to="SignIn" onClick={()=>{
-                if(!isSignUp) dispatch(isSignUpChange(true))
-                }}>
+              <Link to="/SignUp">
                 <div className="header-button">Sing Up</div>
               </Link>
             </>

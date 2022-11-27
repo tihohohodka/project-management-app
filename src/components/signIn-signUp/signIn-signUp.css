@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300&display=swap');
 
+.authpage{
+  margin-top: 220px;
+}
 .modalsign {
   padding: 20px;
   background-color: #969deb;
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
+  width: 430px;
+  margin: 0 auto;
   border-radius: 25px;
 }
 
@@ -28,7 +29,6 @@
 .passwordInp {
   display: flex;
   justify-content: space-between;
-  width: 430px;
   margin: 0 auto 20px auto;
 }
 

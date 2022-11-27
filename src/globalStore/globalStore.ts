@@ -6,23 +6,11 @@ import toastReducer, { descriptionToastChange, visibilityToastChange } from './t
 export const SignInSignUpSlice = createSlice({
   name: 'appstorage',
   initialState: {
-    isSignUp: true,
-    _id: '',
     nameInputVal: '',
     loginInputVal: '',
     passwordInputVal: '',
-    titletextSign: '',
-    askSign: '',
-    hrefSignUp: '',
-    buttonSignBtn: '',
-    autoComp: '',
-    RequsetFunc: { value: () => undefined },
-    hiddenNameInp: true
   },
   reducers: {
-    isSignUpChange: (state, action) => {
-      state.isSignUp = action.payload;
-    },
     nameInputValChange: (state, action) => {
       state.nameInputVal = action.payload;
     },
@@ -32,33 +20,12 @@ export const SignInSignUpSlice = createSlice({
     passwordInputValChange: (state, action) => {
       state.passwordInputVal = action.payload;
     },
-    titletextSignChange: (state, action) => {
-      state.titletextSign = action.payload;
-    },
-    askSignChange: (state, action) => {
-      state.askSign = action.payload;
-    },
-    hrefSignUpChange: (state, action) => {
-      state.hrefSignUp = action.payload;
-    },
-    autoCompChange: (state, action) => {
-      state.autoComp = action.payload;
-    },
-    buttonSignBtnChange: (state, action) => {
-      state.buttonSignBtn = action.payload;
-    },
-    RequsetFuncChange: (state, action) => {
-      state.RequsetFunc = action.payload;
-    },
-    hiddenNameInpChange: (state, action) => {
-      state.hiddenNameInp = action.payload;
-    },
   }
 })
 
 
 
-export const { nameInputValChange, loginInputValChange, passwordInputValChange, titletextSignChange, askSignChange, hrefSignUpChange, autoCompChange, buttonSignBtnChange, RequsetFuncChange, hiddenNameInpChange, isSignUpChange } = SignInSignUpSlice.actions
+export const { nameInputValChange, loginInputValChange, passwordInputValChange } = SignInSignUpSlice.actions
 
 export const store = configureStore({
   reducer: {
