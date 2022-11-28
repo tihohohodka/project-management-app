@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300&display=swap');
 
 .authpage{
-  margin-top: 220px;
+  margin-top: 200px;
+  background-color: #dbe5ff;
 }
 .modalsign {
   padding: 20px;
@@ -44,7 +45,7 @@
   border: none;
 }
 
-.modalsign button {
+.narrow-button {
   border: none;
   background-color: black;
   color: white;
@@ -55,7 +56,19 @@
   width: 200px;
 }
 
-.modalsign button:hover {
+.wide-button {
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 30px;
+  padding: 15px;
+  border-radius: 10px;
+  width: 320px;
+}
+
+.wide-button:hover,
+.narrow-button:hover {
   background-color: #696969;
   transition: 0.3s;
   cursor: pointer;

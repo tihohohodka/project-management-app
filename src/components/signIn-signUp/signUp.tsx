@@ -9,6 +9,8 @@ import {
   useAppDispatch,
 } from '../../globalStore/globalStore';
 import './signIn-signUp.css';
+import HeaderSignUp from './headerSignUp';
+import { Footer } from '../site-parts/footer';
 
 
 
@@ -27,6 +29,7 @@ function SignUp() {
   const [signInscriptionButtonVal, signInscriptionButtonChange] = React.useState('');
   const [signInAskVal, signInAskChange] = React.useState('');
   const [buttonToSignInVal, buttonToSignInChange] = React.useState('');
+  const [classOfButtonSignUp, classOfButtonSignUpChange] = React.useState('');
 
   React.useEffect(() => {
     if(lang === "English"){
@@ -40,6 +43,7 @@ function SignUp() {
       signInscriptionButtonChange('Sign Up');
       signInAskChange('Already registered?  ');
       buttonToSignInChange('Click here to go to Sign In page');
+      classOfButtonSignUpChange('narrow-button')
     } else {
       titleChange('Зарегестрироваться');
       nameInscriptionChange('');
@@ -52,11 +56,13 @@ function SignUp() {
       signInscriptionButtonChange('Зарегестрироваться');
       signInAskChange('Уже зарегестрированы?   ');
       buttonToSignInChange('Нажмите сюда что бы перейти на старницу входа');
+      classOfButtonSignUpChange('wide-button')
     }
   }, [lang])
 
   return (
     <div className="authpage">
+      <HeaderSignUp />
       <div className="modalsign">
         <h2>{titleVal}</h2>
         <form>
@@ -69,7 +75,7 @@ function SignUp() {
           <div className="passwordInp">
             <label>{passwordInscriptionVal}</label><input placeholder={passwordPlaceholderVal} type="password" autoComplete="new-password" value={passwordInputVal} onChange={(e) => dispatch(passwordInputValChange(e.target.value))}></input>
           </div>
-          <button onClick={signUpRequest as unknown as React.MouseEventHandler<HTMLButtonElement>}>{signInscriptionButtonVal}</button>
+          <button className={classOfButtonSignUp} onClick={signUpRequest as unknown as React.MouseEventHandler<HTMLButtonElement>}>{signInscriptionButtonVal}</button>
           <div className="go-sign-up-tab"><span>{signInAskVal}</span>
             <Link to="/SignIn">
               <span className="href-sign-up">{buttonToSignInVal}</span>
@@ -77,6 +83,7 @@ function SignUp() {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
 
   );

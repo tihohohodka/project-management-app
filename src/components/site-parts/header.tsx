@@ -73,6 +73,7 @@ export function Header() {
           )}
           <select
             id="genderSelect"
+            value={reduxLang.lang}
             onChange={(e) => {
               dispatch(changeLang(e.target.value));
             }}

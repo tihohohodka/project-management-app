@@ -8,6 +8,8 @@ import {
   useAppDispatch,
 } from '../../globalStore/globalStore';
 import './signIn-signUp.css';
+import HeaderSignIn from './headerSignIn';
+import { Footer } from '../site-parts/footer';
 
 
 
@@ -48,6 +50,7 @@ function SignIn() {
 
   return (
     <div className="authpage">
+      <HeaderSignIn />
       <div className="modalsign">
         <h2>{titleVal}</h2>
         <form>
@@ -57,7 +60,7 @@ function SignIn() {
           <div className="passwordInp">
             <label>{passwordInscriptionVal}</label><input placeholder={passwordPlaceholderVal} type="password" autoComplete="current-password" value={passwordInputVal} onChange={(e) => dispatch(passwordInputValChange(e.target.value))}></input>
           </div>
-          <button onClick={signInRequest as unknown as React.MouseEventHandler<HTMLButtonElement>}>{signInscriptionButtonVal}</button>
+          <button className="narrow-button" onClick={signInRequest as unknown as React.MouseEventHandler<HTMLButtonElement>}>{signInscriptionButtonVal}</button>
           <div className="go-sign-up-tab"><span>{registerAskVal}</span>
           <Link to="/SignUp">
             <span className="href-sign-up">{buttonToSignUpVal}</span>
@@ -65,6 +68,7 @@ function SignIn() {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
 
   );
