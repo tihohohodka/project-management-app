@@ -23,8 +23,8 @@ function App() {
       <Routes>
         <Route path="*" element={<Unknown />} />
         <Route path="/" element={<Home />} />
-        <Route path="SignIn" element={ localStorage.getItem('token') ? <Navigate to="/" /> : <SignIn /> } />
-        <Route path="SignUp" element={ localStorage.getItem('token') ? <Navigate to="/" /> : <SignUp /> } />
+        <Route path="/SignIn" element={ localStorage.getItem('token') ? <Navigate to="/" /> : <SignIn /> } />
+        <Route path="/SignUp" element={ localStorage.getItem('token') ? <Navigate to="/" /> : <SignUp /> } />
       </Routes>
     </BrowserRouter>
     
@@ -37,7 +37,7 @@ function Home() {
     <div className="App">
       <Header></Header>
       help
-      <Link to="SignIn">Sign In</Link>
+      <Link to="/SignIn">Sign In</Link>
       <Footer></Footer>
     </div>
   );
