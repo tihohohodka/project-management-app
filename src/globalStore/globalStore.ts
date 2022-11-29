@@ -80,11 +80,12 @@ export const signUpRequest = async (evt: Event) => {
 
     const data = await res.json()
       console.log(data);
-      if(data.statusCode === 200){
+      if(data.login){
         store.dispatch(nameInputValChange(''));
         store.dispatch(loginInputValChange(''));
         store.dispatch(passwordInputValChange(''));
-        window.location.reload();
+        openToast('Successful registration')
+        setTimeout(window.location.reload, 3000);
       } else {
         openToast('Error ' + data.statusCode + ':\n' + data.message)
       }
@@ -112,13 +113,13 @@ export const signInRequest = async (evt: Event) => {
 
     const data = await res.json();
     console.log(data);
-    if(data.statusCode === 200){
+    if(data.token){
       openToast("Successful sign in!");
       localStorage.setItem('token', data.token);
       localStorage.setItem('login', bodyRequest.login);
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
-      window.location.reload();
+      setTimeout(window.location.reload, 3000);
     } else {
       openToast('Error ' + data.statusCode + ':\n' + data.message);
     }
