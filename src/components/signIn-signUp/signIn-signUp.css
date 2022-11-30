@@ -1,22 +1,29 @@
+<<<<<<< HEAD:src/components/signIn-signUp.css
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;1,300;1,500;1,700&family=Signika+Negative:wght@700&display=swap');
+=======
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300&display=swap');
+
+.authpage{
+  margin-top: 200px;
+  background-color: #dbe5ff;
+}
+>>>>>>> fcdd068f04d9417412a95cef3138c18a51544479:src/components/signIn-signUp/signIn-signUp.css
 .modalsign {
   padding: 20px;
-  background-color: #00ffff;
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
+  background-color: #969deb;
+  width: 430px;
+  margin: 0 auto;
   border-radius: 25px;
 }
 
 .modalsign h2 {
-  font-family: 'Signika Negative', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 36px;
   margin: 0 auto 20px auto;
 }
 
 .modalsign label {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 20px;
   font-weight: 300;
   font-style: italic;
@@ -27,7 +34,6 @@
 .passwordInp {
   display: flex;
   justify-content: space-between;
-  width: 430px;
   margin: 0 auto 20px auto;
 }
 
@@ -43,7 +49,7 @@
   border: none;
 }
 
-.modalsign button {
+.narrow-button {
   border: none;
   background-color: black;
   color: white;
@@ -54,8 +60,20 @@
   width: 200px;
 }
 
-.modalsign button:hover {
-  background-color: #00adad;
+.wide-button {
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 30px;
+  padding: 15px;
+  border-radius: 10px;
+  width: 320px;
+}
+
+.wide-button:hover,
+.narrow-button:hover {
+  background-color: #696969;
   transition: 0.3s;
   cursor: pointer;
 }
@@ -64,6 +82,7 @@
   margin-top: 20px;
   font-family: 'Inter Tight', sans-serif;
   font-size: 20px;
+  font-weight: 300;
 }
 
 .href-sign-up {

@@ -1,19 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
+import {} from "../app/hooks";
 import {
   nameInputValChange,
   loginInputValChange,
   passwordInputValChange,
-  titletextSignChange,
-  askSignChange,
-  hrefSignUpChange,
-  autoCompChange,
-  buttonSignBtnChange,
-  RequsetFuncChange,
-  hiddenNameInpChange,
-  signUpRequest,
   signInRequest,
+  useAppSelector,
+  useAppDispatch,
 } from "../globalStore/globalStore";
 import "./signIn-signUp.css";
 import { Link } from "react-router-dom";
@@ -51,35 +45,12 @@ function SignInSignUp() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const reduxAuth = useAppSelector((state) => state.auth);
-  React.useEffect(() => {
-    dispatch(RequsetFuncChange({ value: signUpRequest }));
-  }, []);
+
   useEffect(() => {
     if (reduxAuth.Auth) {
       return navigate("/");
     }
   });
-
-  function signTabToggle() {
-    if (titletextSign === "Sign In") {
-      dispatch(titletextSignChange("Sign Up"));
-      dispatch(askSignChange("Already registered?  "));
-      dispatch(hrefSignUpChange("Click here to go to Sign In tab"));
-      dispatch(autoCompChange("new-password"));
-      dispatch(buttonSignBtnChange("Sign Up"));
-      dispatch(RequsetFuncChange({ value: signUpRequest }));
-      dispatch(hiddenNameInpChange(true));
-    } else {
-      dispatch(titletextSignChange("Sign In"));
-      dispatch(askSignChange("Not registered?  "));
-      dispatch(hrefSignUpChange("Click here to go to Sign Up page"));
-      dispatch(autoCompChange("current-password"));
-      dispatch(buttonSignBtnChange("Sign In"));
-      dispatch(RequsetFuncChange({ value: signInRequest }));
-      dispatch(hiddenNameInpChange(false));
-    }
-    return undefined;
-  }
 
   return (
     <div className="page-holder">
@@ -128,9 +99,7 @@ function SignInSignUp() {
           </button>
           <div className="go-sign-up-tab">
             <span>{askSign}</span>
-            <span className="href-sign-up" onClick={signTabToggle}>
-              {hrefSignUp}
-            </span>
+            <span className="href-sign-up">{hrefSignUp}</span>
           </div>
         </form>
         <Link to="/">Вернуться назад</Link>
