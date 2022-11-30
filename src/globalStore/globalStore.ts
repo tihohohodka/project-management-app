@@ -1,6 +1,7 @@
 import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
-import AuthReducer from '../features/reduxAuth'
+import AuthReducer, { changeAuth } from '../features/reduxAuth'
 import langReducer from '../features/reduxLang'
+import { useNavigate } from "react-router-dom";
 export const appSlice = createSlice({
   name: 'appstorage',
   initialState: {
@@ -67,6 +68,7 @@ export const store = configureStore({
 })
 
 export const signUpRequest = async (evt: Event) => {
+
   evt.preventDefault();
   const bodyRequest = {
     "name": store.getState().registrwindw.nameInputVal,
@@ -88,7 +90,7 @@ export const signUpRequest = async (evt: Event) => {
       store.dispatch(nameInputValChange(''));
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
-      window.location.reload();
+
     } else {
       alert(`Error ${data.statusCode}: ${data.message}`);
     }
@@ -121,7 +123,8 @@ export const signInRequest = async (evt: Event) => {
       localStorage.setItem('login', bodyRequest.login);
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
-      window.location.reload();
+      store.dispatch(changeAuth(true));
+      
     } else {
       alert(`Error ${data.statusCode}: ${data.message}`);
     }

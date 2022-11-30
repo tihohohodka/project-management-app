@@ -16,6 +16,13 @@ h1{
   text-align: center;
   font-family: 'Montserrat', sans-serif;
 }
+h2{
+  font-family: 'Montserrat', sans-serif;
+}
+h3{
+  font-family: 'Montserrat', sans-serif;
+  max-width: 45ch;
+}
 header.scrolled{
   transition: 300ms;
   height: 100px;
@@ -41,4 +48,7 @@ header.scrolled{
 }
 .header-button:active{
 box-shadow: inset 2px 2px 5px black;
+}
+.header-logo{
+  height: 150px;
 }

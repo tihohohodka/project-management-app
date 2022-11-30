@@ -1,0 +1,31 @@
+.welcome-picture-class{
+  width:500px;
+}
+.title-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title-content h3{
+  text-align: right;
+
+}
+.member-card{
+  min-width:150px;
+  width:15%;
+  height:400px;
+  background-color: rgb(251, 227, 253);
+  border: rgb(255, 255, 255) 1px solid;
+  border-radius: 15px;
+}
+.member-holder{
+  display: flex;
+  justify-content: center;
+  gap:150px;
+}
+.member-card img{
+  padding-top: 10px;
+  width: 60%;
+  aspect-ratio : 1 / 1;
+  border-radius: 100%;
+}
