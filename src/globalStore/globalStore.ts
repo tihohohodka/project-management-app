@@ -1,7 +1,8 @@
+import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
+import AuthReducer, { changeAuth } from '../features/reduxAuth'
+import langReducer from '../features/reduxLang'
+import { useNavigate } from "react-router-dom";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { createSlice, configureStore } from '@reduxjs/toolkit';
-import AuthReducer from '../features/reduxAuth';
-import langReducer from '../features/reduxLang';
 import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
 export const SignInSignUpSlice = createSlice({
   name: 'appstorage',
@@ -61,6 +62,7 @@ interface ressign {
 }
 
 export const signUpRequest = async (evt: Event) => {
+
   evt.preventDefault();
   const bodyRequest = {
     "name": store.getState().registrwindw.nameInputVal,
@@ -119,7 +121,10 @@ export const signInRequest = async (evt: Event) => {
       localStorage.setItem('login', bodyRequest.login);
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
-      setTimeout(window.location.reload, 3000);
+      store.dispatch(changeAuth(true));
+      setTimeout(function(){
+        window.location.reload();
+      }, 3000);
     } else {
       openToast('Error ' + data.statusCode + ':\n' + data.message);
     }

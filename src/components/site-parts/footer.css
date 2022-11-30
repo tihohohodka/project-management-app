@@ -15,6 +15,7 @@ background: linear-gradient(#dbe5ff, #848aca);
   justify-content: space-around;
   font-family: 'Montserrat', sans-serif;
   color: black;
+  justify-self: flex-end;
 }
 .git-link::after{
   content: "";
