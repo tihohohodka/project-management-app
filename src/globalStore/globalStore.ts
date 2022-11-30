@@ -122,7 +122,9 @@ export const signInRequest = async (evt: Event) => {
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
       store.dispatch(changeAuth(true));
-      
+      setTimeout(function(){
+        window.location.reload();
+      }, 3000);
     } else {
       openToast('Error ' + data.statusCode + ':\n' + data.message);
     }

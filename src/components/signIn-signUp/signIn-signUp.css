@@ -1,13 +1,9 @@
-<<<<<<< HEAD:src/components/signIn-signUp.css
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;1,300;1,500;1,700&family=Signika+Negative:wght@700&display=swap');
-=======
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300&display=swap');
 
 .authpage{
   margin-top: 200px;
   background-color: #dbe5ff;
 }
->>>>>>> fcdd068f04d9417412a95cef3138c18a51544479:src/components/signIn-signUp/signIn-signUp.css
 .modalsign {
   padding: 20px;
   background-color: #969deb;

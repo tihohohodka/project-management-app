@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./signIn-signUp.css";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
+import "./signIn-signUp/signIn-signUp.css";
 import {
   nameInputValChange,
   loginInputValChange,
   passwordInputValChange,
+  useAppSelector,
+  useAppDispatch,
 } from "../globalStore/globalStore";
 import { StateIntr } from "./signIn-signUp";
 import { useNavigate } from "react-router-dom";
