@@ -6,12 +6,14 @@ import { Footer } from "./components/site-parts/footer";
 import { Header } from "./components/site-parts/header";
 import SignInSignUp from "./components/signIn-signUp";
 import { Routes, Route, Link } from "react-router-dom";
+import MainRoute from './components/main-route/main-route';
 function App() {
   return (
     <Routes>
       <Route path="*" element={<Unknown />} />
       <Route path="/" element={<Home />} />
       <Route path="SignIn" element={<SignInSignUp />} />
+      <Route path="/MainRoute" element={<MainRoute />} />
     </Routes>
   );
 }
