@@ -1,9 +1,9 @@
 import React from "react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { changeLang } from "../../features/reduxLang";
 import logo from "../../media/pics/logo192.png";
 import { Routes, Route, Link } from "react-router-dom";
 import "./header.css";
+import { useAppDispatch, useAppSelector, logOut } from '../../globalStore/globalStore';
 let YOffset = 0;
 
 export function Header() {
@@ -27,7 +27,7 @@ export function Header() {
             <>
               <div className="header-button">Редактировать профиль</div>
               <div className="header-button">Создать борду</div>
-              <div className="header-button">Выйти</div>
+              <div className="header-button" onClick={logOut}>Выйти</div>
             </>
           )}
 
@@ -53,26 +53,27 @@ export function Header() {
         <div className="header-button-holder">
           {reduxLang.lang === "Russian" && (
             <>
-              <Link to="SignIn">
+              <Link to="/SignIn">
                 <div className="header-button">Войти</div>
               </Link>
-              <Link to="SignIn">
+              <Link to="/SignUp">
                 <div className="header-button">Зарегистрироваться</div>
               </Link>
             </>
           )}
           {reduxLang.lang === "English" && (
             <>
-              <Link to="SignIn">
+              <Link to="/SignIn">
                 <div className="header-button">Sign In</div>
               </Link>
-              <Link to="SignIn">
+              <Link to="/SignUp">
                 <div className="header-button">Sing Up</div>
               </Link>
             </>
           )}
           <select
             id="genderSelect"
+            value={reduxLang.lang}
             onChange={(e) => {
               dispatch(changeLang(e.target.value));
             }}

@@ -1,20 +1,14 @@
-import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
-import AuthReducer from '../features/reduxAuth'
-import langReducer from '../features/reduxLang'
-export const appSlice = createSlice({
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
+import AuthReducer from '../features/reduxAuth';
+import langReducer from '../features/reduxLang';
+import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
+export const SignInSignUpSlice = createSlice({
   name: 'appstorage',
   initialState: {
-    _id: '',
     nameInputVal: '',
     loginInputVal: '',
     passwordInputVal: '',
-    titletextSign: 'Sign Up',
-    askSign: 'Already registered?  ',
-    hrefSignUp: 'Click here to go to Sign In tab',
-    buttonSignBtn: 'Sign Up',
-    autoComp: '',
-    RequsetFunc: { value: () => undefined },
-    hiddenNameInp: true
   },
   reducers: {
     nameInputValChange: (state, action) => {
@@ -26,45 +20,45 @@ export const appSlice = createSlice({
     passwordInputValChange: (state, action) => {
       state.passwordInputVal = action.payload;
     },
-    titletextSignChange: (state, action) => {
-      state.titletextSign = action.payload;
-    },
-    askSignChange: (state, action) => {
-      state.askSign = action.payload;
-    },
-    hrefSignUpChange: (state, action) => {
-      state.hrefSignUp = action.payload;
-    },
-    autoCompChange: (state, action) => {
-      state.autoComp = action.payload;
-    },
-    buttonSignBtnChange: (state, action) => {
-      state.buttonSignBtn = action.payload;
-    },
-    RequsetFuncChange: (state, action) => {
-      state.RequsetFunc = action.payload;
-    },
-    hiddenNameInpChange: (state, action) => {
-      state.hiddenNameInp = action.payload;
-    },
   }
 })
 
 
 
-export const { nameInputValChange, loginInputValChange, passwordInputValChange, titletextSignChange, askSignChange, hrefSignUpChange, autoCompChange, buttonSignBtnChange, RequsetFuncChange,hiddenNameInpChange } = appSlice.actions
+export const { nameInputValChange, loginInputValChange, passwordInputValChange } = SignInSignUpSlice.actions
 
 export const store = configureStore({
   reducer: {
-    registrwindw: appSlice.reducer,
+    registrwindw: SignInSignUpSlice.reducer,
     auth: AuthReducer,
-    lang: langReducer
+    lang: langReducer,
+    toast: toastReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
 })
+
+export function openToast(message: string) {
+  store.dispatch(visibilityToastChange('toast toast-start'));
+  store.dispatch(descriptionToastChange(message));
+  setTimeout(store.dispatch, 3000, visibilityToastChange('toast toast-end'))
+  setTimeout(store.dispatch, 4000, visibilityToastChange('toast-hidden'));
+  setTimeout(store.dispatch, 4000, descriptionToastChange(''));
+}
+
+
+export function closeToast() {
+  store.dispatch(visibilityToastChange('toast toast-end'))
+  setTimeout(store.dispatch, 1000, visibilityToastChange('toast-hidden'));
+  setTimeout(store.dispatch, 1000, descriptionToastChange(''));
+}
+
+interface ressign {
+  statusCode: number;
+  message: string;
+}
 
 export const signUpRequest = async (evt: Event) => {
   evt.preventDefault();
@@ -73,30 +67,33 @@ export const signUpRequest = async (evt: Event) => {
     "login": store.getState().registrwindw.loginInputVal,
     "password": store.getState().registrwindw.passwordInputVal
   }
-  try{
+  try {
     const res = await fetch('https://kanban-server-production.up.railway.app/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(bodyRequest)
-    });
-    const data = await res.json();
-    console.log(data);
-    if(data._id){
-      alert("Successful registration!");
-      store.dispatch(nameInputValChange(''));
-      store.dispatch(loginInputValChange(''));
-      store.dispatch(passwordInputValChange(''));
-      window.location.reload();
-    } else {
-      alert(`Error ${data.statusCode}: ${data.message}`);
+    })
+
+    console.log(res);
+
+    const data = await res.json()
+      console.log(data);
+      if(data.login){
+        store.dispatch(nameInputValChange(''));
+        store.dispatch(loginInputValChange(''));
+        store.dispatch(passwordInputValChange(''));
+        openToast('Successful registration')
+        setTimeout(window.location.reload, 3000);
+      } else {
+        openToast('Error ' + data.statusCode + ':\n' + data.message)
+      }
+      console.log(data);
+    } catch(e) {
+      openToast((e as ressign).message);
     }
-    console.log(data);
-  } catch {
-    alert( `Error: reason unknown`);
-  }
-};
+}
 
 export const signInRequest = async (evt: Event) => {
   evt.preventDefault();
@@ -113,21 +110,22 @@ export const signInRequest = async (evt: Event) => {
       },
       body: JSON.stringify(bodyRequest)
     });
+
     const data = await res.json();
     console.log(data);
     if(data.token){
-      alert("Successful sign in!");
+      openToast("Successful sign in!");
       localStorage.setItem('token', data.token);
       localStorage.setItem('login', bodyRequest.login);
       store.dispatch(loginInputValChange(''));
       store.dispatch(passwordInputValChange(''));
-      window.location.reload();
+      setTimeout(window.location.reload, 3000);
     } else {
-      alert(`Error ${data.statusCode}: ${data.message}`);
+      openToast('Error ' + data.statusCode + ':\n' + data.message);
     }
     console.log(data);
-  } catch {
-    alert( `Error: reason unknown`);
+  } catch (e) {
+    openToast((e as ressign).message);
   }
 }
 
@@ -137,6 +135,10 @@ export function logOut() {
   localStorage.clear();
   window.location.reload();
 }
+
+export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
+
+export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
 
 
 store.subscribe(() => console.log(store.getState()))
