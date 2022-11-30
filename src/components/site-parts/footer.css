@@ -1,0 +1,42 @@
+.course-logo{
+  background: url(../../../public/pics/rs_school_js.svg) 50%/contain no-repeat;
+    display: block;
+    font-size: 0;
+    height: 40px;
+    margin: auto;
+    width: 80px;
+}
+footer{
+background: linear-gradient(#dbe5ff, #848aca);
+  width:100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: 'Montserrat', sans-serif;
+  color: black;
+  justify-self: flex-end;
+}
+.git-link::after{
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  background: url('../../../public/pics/github-logo.png') 0 0 no-repeat;
+  background-size: contain;
+}
+.git-link{
+  color: black;
+  transition: 300ms;
+}
+.git-link:hover{
+transition: 300ms;
+transform: translate(0px,-5px);
+filter: drop-shadow(0 0 0.15rem rgb(255, 255, 255));
+}
+.footer-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
