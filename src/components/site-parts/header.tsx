@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { changeLang } from "../../features/reduxLang";
-import logo from "../../media/pics/logo192.png";
+import logo from "../../media/pics/logo.png";
 import { Routes, Route, Link } from "react-router-dom";
 import "./header.css";
-import { useAppDispatch, useAppSelector, logOut } from '../../globalStore/globalStore';
+import {
+  useAppDispatch,
+  useAppSelector,
+  logOut,
+} from "../../globalStore/globalStore";
 let YOffset = 0;
-
+const token = localStorage.getItem("token");
 export function Header() {
   const dispatch = useAppDispatch();
   const reduxAuth = useAppSelector((state) => state.auth);
   const reduxLang = useAppSelector((state) => state.lang);
+  useEffect(() => {
+    console.log("auth = " + reduxAuth.Auth);
+  });
   document.addEventListener("scroll", (event) => {
     if (window.pageYOffset >= 300) {
       document.querySelector("header")?.classList.add("scrolled");
@@ -19,15 +26,21 @@ export function Header() {
   });
   return (
     <header>
-      <img src={logo}></img>
+      <Link to="/">
+        <img src={logo} className="header-logo"></img>
+      </Link>
       <h1>Project Management System</h1>
       {reduxAuth.Auth && (
         <div className="header-button-holder">
           {reduxLang.lang === "Russian" && (
             <>
-              <div className="header-button">Редактировать профиль</div>
+              <Link to="EditProfile">
+                <div className="header-button">Редактировать профиль</div>
+              </Link>
               <div className="header-button">Создать борду</div>
-              <div className="header-button" onClick={logOut}>Выйти</div>
+              <div className="header-button" onClick={logOut}>
+                Выйти
+              </div>
             </>
           )}
 
