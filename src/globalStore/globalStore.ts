@@ -78,10 +78,8 @@ export const signUpRequest = async (evt: Event) => {
       body: JSON.stringify(bodyRequest)
     })
 
-    console.log(res);
 
     const data = await res.json()
-      console.log(data);
       if(data.login){
         store.dispatch(nameInputValChange(''));
         store.dispatch(loginInputValChange(''));
@@ -91,7 +89,6 @@ export const signUpRequest = async (evt: Event) => {
       } else {
         openToast('Error ' + data.statusCode + ':\n' + data.message)
       }
-      console.log(data);
     } catch(e) {
       openToast((e as ressign).message);
     }
@@ -103,7 +100,6 @@ export const signInRequest = async (evt: Event) => {
     login: store.getState().registrwindw.loginInputVal,
     password: store.getState().registrwindw.passwordInputVal
   }
-  console.log(store.getState().registrwindw.loginInputVal);
   try{
     const res = await fetch('https://kanban-server-production.up.railway.app/auth/signin', {
       method: 'POST',
@@ -113,8 +109,7 @@ export const signInRequest = async (evt: Event) => {
       body: JSON.stringify(bodyRequest)
     });
 
-    const data = await res.json();
-    console.log(data);
+    const data = await res.json();;
     if(data.token){
       openToast("Successful sign in!");
       localStorage.setItem('token', data.token);
@@ -128,7 +123,6 @@ export const signInRequest = async (evt: Event) => {
     } else {
       openToast('Error ' + data.statusCode + ':\n' + data.message);
     }
-    console.log(data);
   } catch (e) {
     openToast((e as ressign).message);
   }
@@ -145,5 +139,3 @@ export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
 
 export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
 
-
-store.subscribe(() => console.log(store.getState()))
