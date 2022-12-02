@@ -4,6 +4,7 @@ import langReducer from '../features/reduxLang'
 import { useNavigate } from "react-router-dom";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
+import BoardsContainerSlice from './boardsState';
 export const SignInSignUpSlice = createSlice({
   name: 'appstorage',
   initialState: {
@@ -34,6 +35,7 @@ export const store = configureStore({
     auth: AuthReducer,
     lang: langReducer,
     toast: toastReducer,
+    BoardsContainer: BoardsContainerSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -56,7 +58,7 @@ export function closeToast() {
   setTimeout(store.dispatch, 1000, descriptionToastChange(''));
 }
 
-interface ressign {
+export interface ressign {
   statusCode: number;
   message: string;
 }
@@ -134,6 +136,50 @@ export const signInRequest = async (evt: Event) => {
   }
 }
 
+const BoardContainerChange = async () => {
+
+  const resArrUsers = await fetch('https://kanban-server-production.up.railway.app/users', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+    });
+
+  const dataArrUsers = await resArrUsers.json();
+
+  let userId = '';
+  for(let i = 0; i < dataArrUsers.length; i++){
+    if(dataArrUsers[i].login === localStorage.getItem('login')){
+      userId = dataArrUsers[i]._id;
+      break;
+    }
+  }
+
+
+  const bodyRequest = {
+    "title": JSON.stringify({ title:"FirstBoard", desc: 'description of first board'}),
+    "owner": userId,
+    "users": []
+  }
+  console.log(JSON.stringify(bodyRequest.title));
+  try{
+    const res = await fetch('https://kanban-server-production.up.railway.app/boards', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      // body: JSON.stringify(bodyRequest)
+    });
+    console.log(res);
+    const data = await res.json();
+    console.log(data);
+  } catch (e) {
+    console.log((e as ressign).message);
+  }
+}
+
 export function logOut() {
   localStorage.removeItem('token');
   localStorage.removeItem('login');
@@ -144,6 +190,6 @@ export function logOut() {
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
 
 export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
+export type storeType = ReturnType<typeof store.getState>;
 
-
-store.subscribe(() => console.log(store.getState()))
+// store.subscribe(() => console.log(store.getState()))
