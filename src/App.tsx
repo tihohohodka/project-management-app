@@ -18,9 +18,41 @@ import {
 import { changeAuth } from "./features/reduxAuth";
 import welcomePicture from "./media/pics/welcome-pic.png";
 import nickPhoto from "./media/pics/nick-photo.jpg";
+const FIFTEEN_MINUTES: number = 900000;
 function App() {
   const dispatch = useAppDispatch();
+  const reduxAuth = useAppSelector((state) => state.auth);
+  async function tokenCheck() {
+    if (localStorage.getItem("token")) {
+      let res;
+      try {
+        res = await fetch(
+          "https://kanban-server-production.up.railway.app/users",
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+
+        if (res.ok != false) {
+          dispatch(changeAuth(true));
+        } else {
+          dispatch(changeAuth(false));
+          localStorage.clear();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      dispatch(changeAuth(false));
+      localStorage.clear();
+    }
+  }
+
   React.useEffect(() => {
+    setInterval(tokenCheck, FIFTEEN_MINUTES);
     if (localStorage.getItem("token")) {
       dispatch(changeAuth(true));
       openToast(`Hello ${localStorage.getItem("login")}`);
