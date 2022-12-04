@@ -276,57 +276,13 @@ export const deleteBoardAsync = async (evt: Event) => {
         boarditem.id = data._id;
         store.dispatch(modalviewChange(''));
         store.dispatch(changeBoardsInfAsync());
-        openToast("Successful update board!");
+        openToast("Successful delete board!");
       }
       else{
         openToast('Error ' + data.statusCode + ':\n' + data.message);
       }
   } catch (e) {
     openToast((e as ressign).message);
-  }
-}
-
-const BoardContainerChange = async () => {
-
-  const resArrUsers = await fetch('https://kanban-server-production.up.railway.app/users', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      },
-    });
-
-  const dataArrUsers = await resArrUsers.json();
-
-  let userId = '';
-  for(let i = 0; i < dataArrUsers.length; i++){
-    if(dataArrUsers[i].login === localStorage.getItem('login')){
-      userId = dataArrUsers[i]._id;
-      break;
-    }
-  }
-
-
-  const bodyRequest = {
-    "title": JSON.stringify({ title:"FirstBoard", desc: 'description of first board'}),
-    "owner": userId,
-    "users": []
-  }
-  console.log(JSON.stringify(bodyRequest.title));
-  try{
-    const res = await fetch('https://kanban-server-production.up.railway.app/boards', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      },
-      // body: JSON.stringify(bodyRequest)
-    });
-    console.log(res);
-    const data = await res.json();
-    console.log(data);
-  } catch (e) {
-    console.log((e as ressign).message);
   }
 }
 
