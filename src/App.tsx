@@ -69,13 +69,13 @@ function App() {
         <Route
           path="/SignIn"
           element={
-            localStorage.getItem("token") ? <Navigate to="/" /> : <SignIn />
+            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignIn />
           }
         />
         <Route
           path="/SignUp"
           element={
-            localStorage.getItem("token") ? <Navigate to="/" /> : <SignUp />
+            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignUp />
           }
         />
         <Route path="/EditProfile" element={<EditProfile />} />
