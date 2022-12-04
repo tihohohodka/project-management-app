@@ -64,9 +64,7 @@ export function closeToast() {
   store.dispatch(visibilityToastChange('toast toast-end'))
   clearTimeout(oneTimeOut);
   clearTimeout(secondTimeOut);
-  console.log(thirdTimeOut);
   clearTimeout(thirdTimeOut);
-  console.log(thirdTimeOut);
   setTimeout(store.dispatch, 1000, visibilityToastChange('toast-hidden'));
   setTimeout(store.dispatch, 1000, descriptionToastChange(''));
 }
@@ -93,10 +91,7 @@ export const signUpRequest = async (evt: Event) => {
       body: JSON.stringify(bodyRequest)
     })
 
-    console.log(res);
-
     const data = await res.json()
-      console.log(data);
       if(data.login){
         store.dispatch(nameInputValChange(''));
         store.dispatch(loginInputValChange(''));
@@ -106,7 +101,6 @@ export const signUpRequest = async (evt: Event) => {
       } else {
         openToast('Error ' + data.statusCode + ':\n' + data.message)
       }
-      console.log(data);
     } catch(e) {
       openToast((e as ressign).message);
     }
@@ -118,7 +112,6 @@ export const signInRequest = async (evt: Event) => {
     login: store.getState().registrwindw.loginInputVal,
     password: store.getState().registrwindw.passwordInputVal
   }
-  console.log(store.getState().registrwindw.loginInputVal);
   try{
     const res = await fetch('https://kanban-server-production.up.railway.app/auth/signin', {
       method: 'POST',
@@ -129,7 +122,6 @@ export const signInRequest = async (evt: Event) => {
     });
 
     const data = await res.json();
-    console.log(data);
     if(data.token){
       openToast("Successful sign in!");
       localStorage.setItem('token', data.token);
@@ -143,7 +135,6 @@ export const signInRequest = async (evt: Event) => {
     } else {
       openToast('Error ' + data.statusCode + ':\n' + data.message);
     }
-    console.log(data);
   } catch (e) {
     openToast((e as ressign).message);
   }
@@ -182,7 +173,7 @@ export const createBoardAsync = async () => {
       },
       body: JSON.stringify(bodyRequest)
     });
-    console.log(res);
+
     const data = await res.json();
       store.dispatch(modalCrUpdBrdTitleChange(''));
       store.dispatch(modalCrUpdBrdDescChange(''));
@@ -297,5 +288,3 @@ export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
 
 export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
 export type storeType = ReturnType<typeof store.getState>;
-
-// store.subscribe(() => console.log(store.getState()))

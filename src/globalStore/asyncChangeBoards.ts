@@ -20,7 +20,7 @@ const changeBoardsInfAsync = createAsyncThunk<Bords[], undefined, { state: store
         'Content-Type': 'application/json',
       },
     });
-    console.log(res);
+
     const data = await res.json();
     type dataType = ReturnType<typeof data>;
     const newCardInf = data.map((elem: dataType) => {
@@ -28,7 +28,7 @@ const changeBoardsInfAsync = createAsyncThunk<Bords[], undefined, { state: store
       boarditem.id = elem._id
       return boarditem;
     })
-    console.log(newCardInf);
+
     return newCardInf;
   }
 );

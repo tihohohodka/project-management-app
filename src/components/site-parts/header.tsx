@@ -17,7 +17,7 @@ export function Header() {
   const reduxLang = useAppSelector((state) => state.lang);
   useEffect(() => {
     console.log("auth = " + reduxAuth.Auth);
-  });
+  }, []);
   document.addEventListener("scroll", (event) => {
     if (window.pageYOffset >= 300) {
       document.querySelector("header")?.classList.add("scrolled");
