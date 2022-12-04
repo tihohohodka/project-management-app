@@ -1,6 +1,6 @@
 import React from "react";
 import { changeLang } from "../../features/reduxLang";
-import logo from "../../media/pics/logo192.png";
+import logo from "../../media/pics/logo.png";
 import { Routes, Route, Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector, logOut } from '../../globalStore/globalStore';
 let YOffset = 0;
@@ -18,7 +18,7 @@ function HeaderSignIn() {
   });
   return (
     <header>
-      <img src={logo}></img>
+      <img src={logo} className="header-logo"></img>
       <h1>Project Management System</h1>
       <div className="header-button-holder">
         {reduxLang.lang === "Russian" && (
