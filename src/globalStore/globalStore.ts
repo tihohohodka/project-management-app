@@ -4,7 +4,7 @@ import langReducer from '../features/reduxLang'
 import { useNavigate } from "react-router-dom";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
-import BoardsContainerSlice from './boardsState';
+import BoardsContainerSlice, { changeBoardsInfSync, modalCreateBrdDescChange, modalCreateBrdTitleChange } from './boardsState';
 export const SignInSignUpSlice = createSlice({
   name: 'appstorage',
   initialState: {
@@ -43,17 +43,27 @@ export const store = configureStore({
     }),
 })
 
+
+let oneTimeOut: NodeJS.Timeout | undefined;
+let secondTimeOut: NodeJS.Timeout | undefined;
+let thirdTimeOut: NodeJS.Timeout | undefined;
+
 export function openToast(message: string) {
   store.dispatch(visibilityToastChange('toast toast-start'));
   store.dispatch(descriptionToastChange(message));
-  setTimeout(store.dispatch, 3000, visibilityToastChange('toast toast-end'))
-  setTimeout(store.dispatch, 4000, visibilityToastChange('toast-hidden'));
-  setTimeout(store.dispatch, 4000, descriptionToastChange(''));
+  oneTimeOut = setTimeout(store.dispatch, 3000, visibilityToastChange('toast toast-end'))
+  secondTimeOut = setTimeout(store.dispatch, 4000, visibilityToastChange('toast-hidden'));
+  thirdTimeOut = setTimeout(store.dispatch, 4000, descriptionToastChange(''));
 }
 
 
 export function closeToast() {
   store.dispatch(visibilityToastChange('toast toast-end'))
+  clearTimeout(oneTimeOut);
+  clearTimeout(secondTimeOut);
+  console.log(thirdTimeOut);
+  clearTimeout(thirdTimeOut);
+  console.log(thirdTimeOut);
   setTimeout(store.dispatch, 1000, visibilityToastChange('toast-hidden'));
   setTimeout(store.dispatch, 1000, descriptionToastChange(''));
 }
@@ -131,6 +141,58 @@ export const signInRequest = async (evt: Event) => {
       openToast('Error ' + data.statusCode + ':\n' + data.message);
     }
     console.log(data);
+  } catch (e) {
+    openToast((e as ressign).message);
+  }
+}
+
+
+export const createBoardAsync = async () => {
+  try{
+    const resArrUsers = await fetch('https://kanban-server-production.up.railway.app/users', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+      },
+    });
+
+    const dataArrUsers = await resArrUsers.json();
+
+    let userId = '';
+    for(let i = 0; i < dataArrUsers.length; i++){
+      if(dataArrUsers[i].login === localStorage.getItem('login')){
+        userId = dataArrUsers[i]._id;
+        break;
+      }
+    }
+    const bodyRequest = {
+      "title": JSON.stringify({ title: store.getState().BoardsContainer.modalCreateBrdTitleVal, desc: store.getState().BoardsContainer.modalCreateBrdTitleVal}),
+      "owner": userId,
+      "users": []
+    }
+    const res = await fetch('https://kanban-server-production.up.railway.app/boards', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyRequest)
+    });
+    console.log(res);
+    const data = await res.json();
+      store.dispatch(modalCreateBrdTitleChange(''));
+      store.dispatch(modalCreateBrdDescChange(''));
+      if(data._id){
+        type dataType = ReturnType<typeof data>;
+        const boarditem = JSON.parse(data.title);
+        boarditem.id = data._id
+        store.dispatch(changeBoardsInfSync(boarditem));
+        openToast("Successful create board!");
+      }
+      else{
+        openToast('Error ' + data.statusCode + ':\n' + data.message);
+      }
   } catch (e) {
     openToast((e as ressign).message);
   }

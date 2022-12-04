@@ -12,6 +12,8 @@ function BoardItem(props: boardItem){
     <div className='board-item' id={props.id}>
       <h3 className="title-board">{props.title}</h3>
       <p className="desc-sign-board">Description:</p><p className="description-board">{props.description}</p>
+      <div className="delete-update-buttons">
+      </div>
     </div>
   );
 }

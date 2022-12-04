@@ -1,6 +1,6 @@
 import React from 'react';
 import './toast-window.css';
-import closePicture from '../../pictures/close-toast.png';
+import closePicture from '../../pictures/close-win.png';
 import { useAppSelector, closeToast } from '../../globalStore/globalStore';
 
 function ToastWindow() {
