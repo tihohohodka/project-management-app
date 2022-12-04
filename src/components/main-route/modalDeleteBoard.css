@@ -8,7 +8,7 @@
   bottom: 0;
 }
 
-.modal-create-board{
+.modal-delete-board{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -16,7 +16,7 @@
   border-radius: 30px;
   background-color: #8a2be2;
   width: 300px;
-  height: 400px;
+  height: 180px;
   z-index: 3;
   top: 50%;
   left: 50%;
@@ -24,26 +24,7 @@
   padding: 20px;
 }
 
-.modal-create-board img {
-  width: 35px;
-  align-self: flex-end;
-  transition: 0.3s;
-}
-
-.modal-create-board img:hover {
-  cursor: pointer;
-  transform: scale(1.3);
-  filter: invert(47%) sepia(43%) saturate(10%) hue-rotate(59deg) brightness(99%) contrast(103%);
-}
-
-.modal-create-board form {
-  height: 225px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.modal-create-board h3{
+.modal-delete-board h3{
   margin: 0 0 25px 0;
   font-family: 'Montserrat', sans-serif;
   font-size: 26px;
@@ -51,20 +32,24 @@
   font-style: italic;
 }
 
-.modal-create-board label,
-.modal-create-board input,
-.modal-create-board input::placeholder,
-.modal-create-board textarea,
-.modal-create-board textarea::placeholder {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 19px;
+.modal-delete-board img {
+  width: 35px;
+  align-self: flex-end;
+  transition: 0.3s;
 }
 
-.modal-create-board textarea{
-  resize: none;
+.modal-delete-board img:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  filter: invert(47%) sepia(43%) saturate(10%) hue-rotate(59deg) brightness(99%) contrast(103%);
 }
 
-.create-board-button {
+.delete-cancel-board {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-cnacel-button {
   border: none;
   background-color: black;
   color: white;
@@ -74,10 +59,6 @@
   cursor: pointer;
 }
 
-.create-board-button:hover {
+.delete-cnacel-button:hover {
   background-color: grey;
-}
-
-.modal-create-board .reject {
-  color: yellowgreen;
 }

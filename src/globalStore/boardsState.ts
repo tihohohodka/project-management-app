@@ -15,19 +15,19 @@ const BoardsContainerSlice = createSlice({
       },
     ],
     modalview: '',
-    modalCreateBrdTitleVal: '',
-    modalCreateBrdDescVal: '',
+    modalCrUpdBrdTitleVal: '',
+    modalCrUpdBrdDescVal: '',
     loadingboards: true,
   },
   reducers: {
     changeBoardsInfSync: (state, action) => {
       state.boardsInf = [...state.boardsInf, action.payload];
     },
-    modalCreateBrdTitleChange: (state, action) => {
-      state.modalCreateBrdTitleVal = action.payload;
+    modalCrUpdBrdTitleChange: (state, action) => {
+      state.modalCrUpdBrdTitleVal = action.payload;
     },
-    modalCreateBrdDescChange: (state, action) => {
-      state.modalCreateBrdDescVal = action.payload;
+    modalCrUpdBrdDescChange: (state, action) => {
+      state.modalCrUpdBrdDescVal = action.payload;
     },
     modalviewChange: (state, action) => {
       state.modalview = action.payload;
@@ -45,6 +45,6 @@ const BoardsContainerSlice = createSlice({
   },
 })
 
-export const { changeBoardsInfSync, modalCreateBrdTitleChange, modalCreateBrdDescChange, modalviewChange } = BoardsContainerSlice.actions;
+export const { changeBoardsInfSync, modalCrUpdBrdTitleChange, modalCrUpdBrdDescChange, modalviewChange } = BoardsContainerSlice.actions;
 
 export default BoardsContainerSlice;

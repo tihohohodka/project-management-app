@@ -4,7 +4,9 @@ import langReducer from '../features/reduxLang'
 import { useNavigate } from "react-router-dom";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
-import BoardsContainerSlice, { changeBoardsInfSync, modalCreateBrdDescChange, modalCreateBrdTitleChange } from './boardsState';
+import idClickedBoardReducer from './idClickedBoardState';
+import BoardsContainerSlice, { changeBoardsInfSync, modalCrUpdBrdDescChange, modalCrUpdBrdTitleChange, modalviewChange } from './boardsState';
+import changeBoardsInfAsync from './asyncChangeBoards';
 export const SignInSignUpSlice = createSlice({
   name: 'appstorage',
   initialState: {
@@ -36,6 +38,7 @@ export const store = configureStore({
     lang: langReducer,
     toast: toastReducer,
     BoardsContainer: BoardsContainerSlice.reducer,
+    idClickedBoard: idClickedBoardReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -167,9 +170,9 @@ export const createBoardAsync = async () => {
       }
     }
     const bodyRequest = {
-      "title": JSON.stringify({ title: store.getState().BoardsContainer.modalCreateBrdTitleVal, desc: store.getState().BoardsContainer.modalCreateBrdTitleVal}),
-      "owner": userId,
-      "users": []
+      title: JSON.stringify({ title: store.getState().BoardsContainer.modalCrUpdBrdTitleVal, desc: store.getState().BoardsContainer.modalCrUpdBrdDescVal}),
+      owner: userId,
+      users: []
     }
     const res = await fetch('https://kanban-server-production.up.railway.app/boards', {
       method: 'POST',
@@ -181,14 +184,99 @@ export const createBoardAsync = async () => {
     });
     console.log(res);
     const data = await res.json();
-      store.dispatch(modalCreateBrdTitleChange(''));
-      store.dispatch(modalCreateBrdDescChange(''));
+      store.dispatch(modalCrUpdBrdTitleChange(''));
+      store.dispatch(modalCrUpdBrdDescChange(''));
       if(data._id){
         type dataType = ReturnType<typeof data>;
         const boarditem = JSON.parse(data.title);
         boarditem.id = data._id
+        store.dispatch(modalviewChange(''));
         store.dispatch(changeBoardsInfSync(boarditem));
         openToast("Successful create board!");
+      }
+      else{
+        openToast('Error ' + data.statusCode + ':\n' + data.message);
+      }
+  } catch (e) {
+    openToast((e as ressign).message);
+  }
+}
+
+
+export const updateBoardAsync = async () => {
+  const idOfBoard = store.getState().idClickedBoard.idBoradVal;
+  try{
+    const resArrUsers = await fetch('https://kanban-server-production.up.railway.app/users', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+      },
+    });
+
+    const dataArrUsers = await resArrUsers.json();
+
+    let userId = '';
+    for(let i = 0; i < dataArrUsers.length; i++){
+      if(dataArrUsers[i].login === localStorage.getItem('login')){
+        userId = dataArrUsers[i]._id;
+        break;
+      }
+    }
+    const bodyRequest = {
+      "title": JSON.stringify({ title: store.getState().BoardsContainer.modalCrUpdBrdTitleVal, desc: store.getState().BoardsContainer.modalCrUpdBrdDescVal}),
+      "owner": userId,
+      "users": []
+    }
+    const res = await fetch('https://kanban-server-production.up.railway.app/boards/' + idOfBoard, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyRequest)
+    });
+    const data = await res.json();
+      store.dispatch(modalCrUpdBrdTitleChange(''));
+      store.dispatch(modalCrUpdBrdDescChange(''));
+      if(data._id){
+        type dataType = ReturnType<typeof data>;
+        const boarditem = JSON.parse(data.title);
+        boarditem.id = data._id
+        store.dispatch(modalviewChange(''));
+        store.dispatch(changeBoardsInfAsync());
+        openToast("Successful update board!");
+      }
+      else{
+        openToast('Error ' + data.statusCode + ':\n' + data.message);
+      }
+  } catch (e) {
+    openToast((e as ressign).message);
+  }
+}
+
+export const deleteBoardAsync = async (evt: Event) => {
+  evt.preventDefault();
+
+  const idOfBoard = store.getState().idClickedBoard.idBoradVal;
+  try{
+    const res = await fetch(`https://kanban-server-production.up.railway.app/boards/${idOfBoard}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    });
+    const data = await res.json();
+
+      if(data._id){
+        type dataType = ReturnType<typeof data>;
+        const boarditem = JSON.parse(data.title);
+        boarditem.id = data._id;
+        store.dispatch(modalviewChange(''));
+        store.dispatch(changeBoardsInfAsync());
+        openToast("Successful update board!");
       }
       else{
         openToast('Error ' + data.statusCode + ':\n' + data.message);

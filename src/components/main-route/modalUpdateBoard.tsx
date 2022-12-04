@@ -1,18 +1,20 @@
 import React from 'react';
-import { createBoardAsync, useAppDispatch, useAppSelector } from '../../globalStore/globalStore';
+import { updateBoardAsync, useAppDispatch, useAppSelector } from '../../globalStore/globalStore';
 import { modalCrUpdBrdTitleChange, modalCrUpdBrdDescChange, modalviewChange } from '../../globalStore/boardsState';
 import closePicture from '../../pictures/close-win.png';
 import './modalCreateUpdateBoard.css'
 
-
-function ModalCreateBoard(){
+type prp = {
+  id: string
+}
+function ModalUpdateBoard(){
   const { modalCrUpdBrdTitleVal, modalCrUpdBrdDescVal } = useAppSelector(state => state.BoardsContainer);
   const dispatch = useAppDispatch();
   const [isWrongTitle, isWrongTitleChange] = React.useState(<div></div>);
   const [isWrongDesc, isWrongDescChange] = React.useState(<div></div>);
 
   let noBreakCreatingBoard = true;
-  function clickButtonCreateBrd(evt: Event){
+  function clickButtonUpdateBrd(evt: Event){
     evt.preventDefault();
     if(modalCrUpdBrdTitleVal.length > 8 || modalCrUpdBrdTitleVal.length == 0 ) {
       isWrongTitleChange(<div><span className='reject'>Please enter no more than 8 characters</span></div>)
@@ -27,7 +29,7 @@ function ModalCreateBoard(){
       isWrongDescChange(<div></div>)
     }
     if(noBreakCreatingBoard){
-      createBoardAsync();
+      updateBoardAsync();
     }
   }
   return (
@@ -35,14 +37,14 @@ function ModalCreateBoard(){
       <div className='dark-screen' onClick={() => dispatch(modalviewChange(''))}></div>
       <div className="modal-cr-upd-board">
         <img alt="close picture" src={closePicture} onClick={() => dispatch(modalviewChange(''))}></img>
-        <h3>Creating Board</h3>
+        <h3>Updating Board</h3>
         <form>
           <label htmlFor='title-form'>Enter title(!no more than 8 characters)</label>
           <input
-              id='title-from'
-              placeholder='Title'
-              value={modalCrUpdBrdTitleVal}
-              onChange={(e) => dispatch(modalCrUpdBrdTitleChange(e.target.value))}
+            id='title-from'
+            placeholder='Title'
+            value={modalCrUpdBrdTitleVal}
+            onChange={(e) => dispatch(modalCrUpdBrdTitleChange(e.target.value))}
           ></input>
           {isWrongTitle}
           <label htmlFor='description-form'>Enter description(!no more than 25 characters)</label>
@@ -56,10 +58,10 @@ function ModalCreateBoard(){
           ></textarea>
           {isWrongDesc}
         </form>
-        <button className="create-cr-upd-button" onClick={clickButtonCreateBrd as unknown as React.MouseEventHandler<HTMLButtonElement>}>Create board</button>
+        <button className="create-cr-upd-button" onClick={clickButtonUpdateBrd as unknown as React.MouseEventHandler<HTMLButtonElement>}>Update board</button>
       </div>
     </>
   )
 }
 
-export default ModalCreateBoard;
+export default ModalUpdateBoard;
