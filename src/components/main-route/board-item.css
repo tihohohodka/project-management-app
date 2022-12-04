@@ -1,10 +1,16 @@
+.bord-item-with-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
 .board-item {
   border: 2px solid rgb(172 151 233);
   background-color: white;
   width: 210px;
-  height: 160px;
+  height: 125px;
   border-radius: 16px;
   padding: 20px;
+  margin-bottom: 10px;
 }
 
 .title-board {
@@ -16,9 +22,13 @@
 }
 
 .delete-update-boards {
+  border: 2px solid rgb(172 151 233);
+  background-color: white;
   display: flex;
   justify-content: center;
   gap: 10px;
+  border-radius: 16px;
+  padding: 10px;
 }
 
 .delete-board,

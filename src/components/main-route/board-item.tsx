@@ -13,18 +13,20 @@ interface boardItem {
 function BoardItem(props: boardItem){
   const dispatch = useAppDispatch();
   return (
-    <div className='board-item' id={props.id}>
-      <h3 className="title-board">{props.title}</h3>
-      <p className="desc-sign-board">Description:</p><p className="description-board">{props.description}</p>
+    <div className="bord-item-with-buttons">
+      <div className='board-item' id={props.id}>
+        <h3 className="title-board">{props.title}</h3>
+        <p className="desc-sign-board">Description:</p><p className="description-board">{props.description}</p>
+      </div>
       <div className="delete-update-boards">
         <button className='delete-board' onClick={() => {
           dispatch(modalviewChange('delete'));
           dispatch(idBoardChange(props.id));
-          }}>Delete</button>
+        } }>Delete</button>
         <button className='update-board' onClick={() => {
           dispatch(modalviewChange('update'));
           dispatch(idBoardChange(props.id));
-          }}>Update</button>
+        } }>Update</button>
       </div>
     </div>
   );
