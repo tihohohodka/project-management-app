@@ -18,7 +18,9 @@ import {
 import { changeAuth } from "./features/reduxAuth";
 import welcomePicture from "./media/pics/welcome-pic.png";
 import nickPhoto from "./media/pics/nick-photo.jpg";
+import MainRoute from './components/main-route/main-route';
 const FIFTEEN_MINUTES: number = 900000;
+
 function App() {
   const dispatch = useAppDispatch();
   const reduxAuth = useAppSelector((state) => state.auth);
@@ -67,16 +69,17 @@ function App() {
         <Route
           path="/SignIn"
           element={
-            localStorage.getItem("token") ? <Navigate to="/" /> : <SignIn />
+            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignIn />
           }
         />
         <Route
           path="/SignUp"
           element={
-            localStorage.getItem("token") ? <Navigate to="/" /> : <SignUp />
+            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignUp />
           }
         />
         <Route path="/EditProfile" element={<EditProfile />} />
+        <Route path="/MainRoute" element={<MainRoute />} />
       </Routes>
     </BrowserRouter>
   );
