@@ -20,8 +20,10 @@ export function Header() {
   document.addEventListener("scroll", (event) => {
     if (window.pageYOffset >= 300) {
       document.querySelector("header")?.classList.add("scrolled");
+      document.querySelector(".header-logo")?.classList.add("scrolled");
     } else {
       document.querySelector("header")?.classList.remove("scrolled");
+      document.querySelector(".header-logo.scrolled")?.classList.remove("scrolled");
     }
   });
   return (
