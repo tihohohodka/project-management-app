@@ -18,7 +18,7 @@ function HeaderSignUp() {
   });
   return (
     <header>
-      <img src={logo}></img>
+      <img src={logo} className="header-logo"></img>
       <h1>Project Management System</h1>
       <div className="header-button-holder">
         {reduxLang.lang === "Russian" && (
