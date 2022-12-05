@@ -454,7 +454,7 @@ export function BoardPage() {
 
         <DragDropContext onDragEnd={onDragEnd}>
           {loadingColumns ? (
-            <div>Loading...</div>
+            <div className="loading">Loading...</div>
           ) : (
             <StyledColumns>
               {Object.values(columns).map((col, index) => (

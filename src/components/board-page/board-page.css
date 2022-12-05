@@ -92,3 +92,6 @@ button:hover{
   justify-content: space-between;
 
 }
+.loading{
+  height: 400px;
+}
