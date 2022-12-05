@@ -18,6 +18,7 @@ import {
 import { changeAuth } from "./features/reduxAuth";
 import welcomePicture from "./media/pics/welcome-pic.png";
 import nickPhoto from "./media/pics/nick-photo.jpg";
+import { BoardPage } from "./components/board-page/board-page";
 function App() {
   const dispatch = useAppDispatch();
   React.useEffect(() => {
@@ -45,6 +46,7 @@ function App() {
           }
         />
         <Route path="/EditProfile" element={<EditProfile />} />
+        <Route path="/Boards" element={<BoardPage />} />
       </Routes>
     </BrowserRouter>
   );
