@@ -34,9 +34,9 @@ function SignIn() {
     if(lang === "English"){
       titleChange('Sign In');
       loginInscriptionChange('Enter login: ');
-      loginPlaceholderChange('Login');
+      loginPlaceholderChange('Login (only letters, no more 6)');
       passowrdInscriptionChange('Enter password: ');
-      passowrdPlaceholderChange('Password');
+      passowrdPlaceholderChange('Password (no more 3 characters)');
       signInscriptionButtonChange('Sign In');
       registerAskChange('Not registered?   ');
       buttonToSignUpChange('Click here to go to Sign Up page');
@@ -45,9 +45,9 @@ function SignIn() {
     } else {
       titleChange('Войти');
       loginInscriptionChange('Введите логин: ');
-      loginPlaceholderChange('Логин');
+      loginPlaceholderChange('Логин (только буквы не больше 6)');
       passowrdInscriptionChange('Введите пароль: ');
-      passowrdPlaceholderChange('Пароль');
+      passowrdPlaceholderChange('Пароль (не больше 3 символов)');
       signInscriptionButtonChange('Войти');
       registerAskChange('Не зарегестрированы?   ');
       buttonToSignUpChange('Нажмите сюда что бы перейти на старницу регистрации');
