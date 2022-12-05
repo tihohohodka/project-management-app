@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import "./signIn-signUp/signIn-signUp.css";
 import {
   nameInputValChange,
@@ -8,7 +7,6 @@ import {
   useAppSelector,
   useAppDispatch,
 } from "../globalStore/globalStore";
-import { StateIntr } from "./signIn-signUp";
 import { useNavigate } from "react-router-dom";
 import { changeAuth } from "../features/reduxAuth";
 import { Header } from "./site-parts/header";
@@ -22,14 +20,15 @@ interface response {
 }
 let profile: response;
 export function EditProfile() {
-  const { nameInputVal, loginInputVal, passwordInputVal } = useSelector(
-    (state: StateIntr) => state.registrwindw
+  const { nameInputVal, loginInputVal, passwordInputVal } = useAppSelector(
+    (state) => state.registrwindw
   );
+
   let navigate = useNavigate();
-  const reduxAuth = useAppSelector((state) => state.auth);
+
   const [refresh, setRefresh] = useState(0);
   const [deleteModal, setDeleteModal] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     setTimeout(async () => {
       try {
