@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { changeAuth } from "../features/reduxAuth";
 import { Header } from "./site-parts/header";
 import { Footer } from "./site-parts/footer";
-import './edit-profile.css';
+import "./edit-profile.css";
 const token = localStorage.getItem("token");
 const login = localStorage.getItem("login");
 interface response {
@@ -24,7 +24,7 @@ export function EditProfile() {
   const { nameInputVal, loginInputVal, passwordInputVal } = useAppSelector(
     (state) => state.registrwindw
   );
-
+  const reduxLang = useAppSelector((state) => state.lang);
   let navigate = useNavigate();
 
   const [refresh, setRefresh] = useState(0);
@@ -113,12 +113,28 @@ export function EditProfile() {
     <div className="page-holder">
       <Header></Header>
       <main>
-        <h1 className='edit-pr-h1'>Имя: {profile && profile.name}</h1>
-        <h1 className='edit-pr-h1'>Логин: {profile && profile.login}</h1>
-        <h1 className='edit-pr-h1'>Id: {profile && profile._id}</h1>
+        {reduxLang.lang === "Russian" && (
+          <h1 className="edit-pr-h1">Имя: {profile && profile.name}</h1>
+        )}
+        {reduxLang.lang === "Russian" && (
+          <h1 className="edit-pr-h1">Логин: {profile && profile.login}</h1>
+        )}
+        {reduxLang.lang === "Russian" && (
+          <h1 className="edit-pr-h1">Айди: {profile && profile._id}</h1>
+        )}
+        {reduxLang.lang === "English" && (
+          <h1 className="edit-pr-h1">Name: {profile && profile.name}</h1>
+        )}
+        {reduxLang.lang === "English" && (
+          <h1 className="edit-pr-h1">Login: {profile && profile.login}</h1>
+        )}
+        {reduxLang.lang === "English" && (
+          <h1 className="edit-pr-h1">Id: {profile && profile._id}</h1>
+        )}
 
         <div className="nameInp">
-          <label>Enter name: </label>
+          {reduxLang.lang === "English" && <label>Enter name: </label>}
+          {reduxLang.lang === "Russian" && <label>Введите Имя: </label>}
           <input
             placeholder="Name"
             type="text"
@@ -128,7 +144,8 @@ export function EditProfile() {
           ></input>
         </div>
         <div className="loginInp">
-          <label>Enter login: </label>
+          {reduxLang.lang === "English" && <label>Enter login: </label>}
+          {reduxLang.lang === "Russian" && <label>Введите логин: </label>}
           <input
             placeholder="Login"
             type="text"
@@ -138,7 +155,8 @@ export function EditProfile() {
           ></input>
         </div>
         <div className="passwordInp">
-          <label>Enter password: </label>
+          {reduxLang.lang === "English" && <label>Enter password: </label>}
+          {reduxLang.lang === "English" && <label>Введите пароль: </label>}
           <input
             placeholder="Password"
             type="password"
@@ -152,9 +170,24 @@ export function EditProfile() {
         </div>
         {deleteModal && (
           <div className="modalsign">
-            Вы уверены, что хотите удалить свой аккаунт?
-            <button onClick={delFunction}>Delete</button>
-            <button onClick={cancelDelFunction}>Cancel</button>
+            {reduxLang.lang === "English" && (
+              <p>Are you sure you want to delete your account?</p>
+            )}
+            {reduxLang.lang === "Russian" && (
+              <p>Вы уверены, что хотите удалить свой аккаунт?</p>
+            )}
+            {reduxLang.lang === "English" && (
+              <button onClick={delFunction}>Delete</button>
+            )}
+            {reduxLang.lang === "English" && (
+              <button onClick={cancelDelFunction}>Cancel</button>
+            )}
+            {reduxLang.lang === "Russian" && (
+              <button onClick={delFunction}>Удалить</button>
+            )}
+            {reduxLang.lang === "Russian" && (
+              <button onClick={cancelDelFunction}>Отмена</button>
+            )}
           </div>
         )}
       </main>
