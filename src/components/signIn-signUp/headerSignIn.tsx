@@ -18,34 +18,39 @@ function HeaderSignIn() {
   });
   return (
     <header>
-      <img src={logo} className="header-logo"></img>
-      <h1>Project Management System</h1>
-      <div className="header-button-holder">
-        {reduxLang.lang === "Russian" && (
-          <>
-            <Link to="/SignUp">
-              <div className="header-button">Зарегистрироваться</div>
-            </Link>
-          </>
-        )}
-        {reduxLang.lang === "English" && (
-          <>
-            <Link to="/SignUp">
-              <div className="header-button">Sing Up</div>
-            </Link>
-          </>
-        )}
-        <select
-          id="genderSelect"
-          value={reduxLang.lang}
-          onChange={(e) => {
-            dispatch(changeLang(e.target.value));
-          }}
-        >
-          <option value="Russian">Русский</option>
-          <option value="English">English</option>
-        </select>
+      <Link to="/">
+        <img src={logo} className="header-logo"></img>
+      </Link>
+      <div className='header-title-buttons'>
+        <h1>Project Management System</h1>
+        <div className="header-button-holder">
+          {reduxLang.lang === "Russian" && (
+            <>
+              <Link to="/SignUp">
+                <div className="header-button">Зарегистрироваться</div>
+              </Link>
+            </>
+          )}
+          {reduxLang.lang === "English" && (
+            <>
+              <Link to="/SignUp">
+                <div className="header-button">Sing Up</div>
+              </Link>
+            </>
+          )}
+          <select
+            id="genderSelect"
+            value={reduxLang.lang}
+            onChange={(e) => {
+              dispatch(changeLang(e.target.value));
+            }}
+          >
+            <option value="Russian">Русский</option>
+            <option value="English">English</option>
+          </select>
+        </div>
       </div>
+      
     </header>
   );
 }

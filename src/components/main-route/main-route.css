@@ -1,4 +1,21 @@
 .main-page {
   margin-top: 200px;
   background-color: #dbe5ff;
+  justify-content: space-between;
+}
+
+.main-page h2 {
+  text-align: center;
+}
+
+@media (max-width: 1092px) {
+  .main-page {
+    margin-top: 270px;
+  }
+}
+
+@media (max-width: 515px) {
+  .main-page {
+    margin-top: 300px;
+  }
 }

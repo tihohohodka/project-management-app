@@ -30,6 +30,7 @@ function MainRoute() {
     <div className='main-page'>
       {changeModalView()}
       <Header />
+      <h2>Boards</h2>
       <BoardContainer />
       <Footer />
     </div>

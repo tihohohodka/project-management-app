@@ -7,7 +7,7 @@ export function Footer() {
     <footer>
       <div className="footer-item">
         <a
-          href="https://rs.school/react/"
+          href="https://github.com/tihohohodka/"
           target="_blank"
           rel="noreferrer"
           className="git-link"
@@ -15,7 +15,7 @@ export function Footer() {
           tihohohodka
         </a>
         <a
-          href="https://rs.school/react/"
+          href="https://github.com/alekprogrammer/"
           target="_blank"
           rel="noreferrer"
           className="git-link"

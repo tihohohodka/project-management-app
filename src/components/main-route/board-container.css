@@ -3,8 +3,20 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  width: 100%;
   padding: 20px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 350px);
+}
+
+@media (max-width: 1092px){
+  .boards-container{
+    min-height: calc(100vh - 420px);
+  }
+}
+@media (max-width: 515px) {
+  .boards-container{
+    min-height: calc(100vh - 450px);
+  }
 }
 
 .boards-container-loading {

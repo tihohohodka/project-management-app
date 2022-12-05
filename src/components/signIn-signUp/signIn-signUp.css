@@ -101,3 +101,37 @@
 .wrong-valid span{
   font-size: 13px;
 }
+
+@media (max-width: 1092px) {
+  .authpage{
+    margin-top: 270px;;
+  }
+}
+
+@media (max-width: 515px) {
+  .authpage{
+    margin-top: 300px;
+  }
+
+  .modalsign {
+    width: 280px;
+  }
+
+  .modalsign h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+  }
+
+  .modalsign input {
+    width: 260px;
+  }
+
+  .wide-button {
+    width: 265px;
+    font-size: 20px;
+  }
+
+  .wrong-valid {
+    width: 260px;
+  }
+}
