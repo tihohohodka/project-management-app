@@ -1,6 +1,7 @@
 .main-page {
   margin-top: 200px;
   background-color: #dbe5ff;
+  justify-content: space-between;
 }
 
 @media (max-width: 1092px) {
