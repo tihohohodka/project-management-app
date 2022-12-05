@@ -17,8 +17,9 @@ import {
 import { changeAuth } from "./features/reduxAuth";
 import welcomePicture from "./media/pics/welcome-pic.png";
 import nickPhoto from "./media/pics/nick-photo.jpg";
+import AleksPhoto from "./media/pics/aleks-photo.jpeg";
 import { BoardPage } from "./components/board-page/board-page";
-import MainRoute from './components/main-route/main-route';
+import MainRoute from "./components/main-route/main-route";
 const FIFTEEN_MINUTES: number = 900000;
 
 function App() {
@@ -69,33 +70,45 @@ function App() {
         <Route
           path="/SignIn"
           element={
-            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignIn />
+            localStorage.getItem("token") ? (
+              <Navigate to="/MainRoute" />
+            ) : (
+              <SignIn />
+            )
           }
         />
         <Route
           path="/SignUp"
           element={
-            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignUp />
+            localStorage.getItem("token") ? (
+              <Navigate to="/MainRoute" />
+            ) : (
+              <SignUp />
+            )
           }
         />
         <Route
           path="/EditProfile"
           element={
-            localStorage.getItem("token") ? <EditProfile />  : <Navigate to="/" />
+            localStorage.getItem("token") ? (
+              <EditProfile />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
         <Route
-          path="/Boards"
+          path="/Board"
           element={
-            localStorage.getItem("token") ? <BoardPage />  : <Navigate to="/" />
+            localStorage.getItem("token") ? <BoardPage /> : <Navigate to="/" />
           }
         />
         <Route
           path="/MainRoute"
           element={
-            localStorage.getItem("token") ? <MainRoute />  : <Navigate to="/" />
+            localStorage.getItem("token") ? <MainRoute /> : <Navigate to="/" />
           }
-          />
+        />
       </Routes>
     </BrowserRouter>
   );
@@ -147,13 +160,33 @@ function Home() {
                 <img src={nickPhoto} className="welcome-picture-class"></img>
                 {reduxLang.lang === "Russian" && <h3>Никита Гордеев</h3>}
                 {reduxLang.lang === "English" && <h2>Nikita Gordeev</h2>}
-                <p>
-                  всякая информация--всякая информация--всякая
-                  информация--всякая информация--всякая информация--всякая
-                  информация-- всякая информация--всякая информация
-                </p>
+                {reduxLang.lang === "Russian" && (
+                  <p>
+                    Сделал приветсвенную страницу, хедер, футер и страницу с
+                    тасками
+                  </p>
+                )}
+                {reduxLang.lang === "English" && (
+                  <p>Made a welcome page, header, footer and a task page</p>
+                )}
               </div>
-              <div className="member-card"></div>
+              <div className="member-card">
+                <img src={AleksPhoto} className="welcome-picture-class"></img>
+                {reduxLang.lang === "Russian" && <h3>Александр Лобков</h3>}
+                {reduxLang.lang === "English" && <h2>Aleksandr Lobkov</h2>}
+                {reduxLang.lang === "Russian" && (
+                  <p>
+                    Сделал регистрацию, страницу входа, логотип, Main Route и
+                    много еще всякого
+                  </p>
+                )}
+                {reduxLang.lang === "English" && (
+                  <p>
+                    Made registration, login page, logo, Main Route and many
+                    other things
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </main>

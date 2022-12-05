@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const idClickedBoardSlice = createSlice({
   name: 'idClickedCard',
   initialState: {
-    idBoradVal: '',
+    idBoradVal: localStorage.getItem('boardId') as string,
   },
   reducers: {
     idBoardChange: (state, action) => {

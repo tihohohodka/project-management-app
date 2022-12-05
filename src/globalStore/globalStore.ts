@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import toastReducer, { descriptionToastChange, visibilityToastChange } from './toastState';
 import idClickedBoardReducer from './idClickedBoardState';
+import taskLoading from './taskLoading';
 import BoardsContainerSlice, { changeBoardsInfSync, modalCrUpdBrdDescChange, modalCrUpdBrdTitleChange, modalviewChange } from './boardsState';
 import changeBoardsInfAsync from './asyncChangeBoards';
 export const SignInSignUpSlice = createSlice({
@@ -39,6 +40,7 @@ export const store = configureStore({
     toast: toastReducer,
     BoardsContainer: BoardsContainerSlice.reducer,
     idClickedBoard: idClickedBoardReducer,
+    taskLoading:taskLoading
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
