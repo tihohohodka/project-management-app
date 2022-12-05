@@ -35,9 +35,9 @@ function SignUp() {
   const [isWrongLoginLg, isWrongLoginLgChange] = React.useState('')
   const [isWrongPasswordLg, isWrongPasswordLgChange] = React.useState('')
 
-  const [isWrongName, isWrongNameChange] = React.useState(<div><span>{isWrongNameLg}</span></div>);
-  const [isWrongLogin, isWrongLoginChange] = React.useState(<div><span>{isWrongLoginLg}</span></div>);
-  const [isWrongPassword, isWrongPasswordChange] = React.useState(<div><span>{isWrongPasswordLg}</span></div>);
+  const [isWrongName, isWrongNameChange] = React.useState(<span>{isWrongNameLg}</span>);
+  const [isWrongLogin, isWrongLoginChange] = React.useState(<span>{isWrongLoginLg}</span>);
+  const [isWrongPassword, isWrongPasswordChange] = React.useState(<span>{isWrongPasswordLg}</span>);
 
   React.useEffect(() => {
     if(lang === "English"){

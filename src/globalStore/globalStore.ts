@@ -93,8 +93,7 @@ export const signUpRequest = async () => {
     }
 }
 
-export const signInRequest = async (evt: Event) => {
-  evt.preventDefault();
+export const signInRequest = async () => {
   const bodyRequest = {
     login: store.getState().registrwindw.loginInputVal,
     password: store.getState().registrwindw.passwordInputVal
