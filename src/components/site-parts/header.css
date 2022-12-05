@@ -11,8 +11,7 @@ header{
   transition: 300ms;
   font-family: 'Montserrat', sans-serif;
 }
-h1{
-  justify-self: flex-end;
+header h1{
   text-align: center;
   font-family: 'Montserrat', sans-serif;
 }
@@ -25,14 +24,22 @@ h3{
 }
 header.scrolled{
   transition: 300ms;
-  height: 100px;
+  height: 145px;
+}
+.header-title-buttons{
+  display: flex;
+  width: 800px;
+  flex-direction: column;
+}
+.header-title-buttons h1 {
+  align-self: flex-start;
 }
 .header-button-holder{
- gap: 5px;
-  width: 15%;
+  gap: 5px;
+  width: 505px;
   display: flex;
+  align-self: flex-end;
   align-items: center;
-  justify-content: space-around;
 }
 .header-button{
   font-weight: 800;
@@ -57,4 +64,53 @@ box-shadow: inset 2px 2px 5px black;
 .header-logo.scrolled{
   height: 85px;
   transition: 300ms;
+}
+
+@media (max-width: 1092px) {
+  header{
+    flex-direction: column;
+    height: 270px;
+  }
+  header.scrolled {
+    height: 200px;
+  }
+  header > a {
+    align-self: center;
+  }
+  .header-logo {
+    height: 100px;
+  }
+  .main-page {
+    margin-top: 270px;
+  }
+  .header-title-buttons {
+    width: 660px;
+    align-self: center;
+  }
+  .header-title-buttons h1 {
+    align-self: center;
+    font-size: 20px;
+  }
+  .header-button-holder {
+    align-self: center;
+  }
+}
+
+@media (max-width: 515px) {
+  header{
+    height: 300px;
+  }
+  header.scrolled .header-logo {
+    height: 60px;
+  }
+  .header-title-buttons h1 {
+    display: none;
+    width: 220px;
+  }
+  header .header-button-holder {
+    flex-direction: column;
+  }
+  header.scrolled {
+    height: 290px;
+  }
 }

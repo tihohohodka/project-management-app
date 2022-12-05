@@ -22,7 +22,7 @@ function BoardContainer(){
   }, []);
 
   return (
-    <div className={ loadingboards ? "boards-container-loading": "boards-container" }>
+    <main className={ loadingboards ? "boards-container-loading": "boards-container" }>
       { loadingboards ? (
         <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
       ) : (
@@ -38,7 +38,7 @@ function BoardContainer(){
         })
       )
       }
-    </div>
+    </main>
   );
 }
 

@@ -40,3 +40,9 @@ filter: drop-shadow(0 0 0.15rem rgb(255, 255, 255));
   flex-direction: column;
   align-items: center;
 }
+
+@media (max-width: 354px) {
+  footer {
+    flex-direction: column;
+  }
+}

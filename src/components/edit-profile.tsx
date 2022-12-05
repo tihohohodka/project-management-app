@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { changeAuth } from "../features/reduxAuth";
 import { Header } from "./site-parts/header";
 import { Footer } from "./site-parts/footer";
+import './edit-profile.css';
 const token = localStorage.getItem("token");
 const login = localStorage.getItem("login");
 interface response {
@@ -112,9 +113,9 @@ export function EditProfile() {
     <div className="page-holder">
       <Header></Header>
       <main>
-        <h1>Имя: {profile && profile.name}</h1>
-        <h1>Логин: {profile && profile.login}</h1>
-        <h1>Id: {profile && profile._id}</h1>
+        <h1 className='edit-pr-h1'>Имя: {profile && profile.name}</h1>
+        <h1 className='edit-pr-h1'>Логин: {profile && profile.login}</h1>
+        <h1 className='edit-pr-h1'>Id: {profile && profile._id}</h1>
 
         <div className="nameInp">
           <label>Enter name: </label>
