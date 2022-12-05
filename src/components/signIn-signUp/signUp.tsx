@@ -41,7 +41,6 @@ function SignUp() {
 
   React.useEffect(() => {
     if(lang === "English"){
-      console.log('klkl');
       titleChange('Sign Up');
       nameInscriptionChange('Enter name: ');
       namePlaceholderChange('Name (only letters, no more 6)');

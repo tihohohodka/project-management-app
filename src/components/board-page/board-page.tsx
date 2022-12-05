@@ -27,7 +27,7 @@ type getColumnType = {
   boardId: string;
 };
 export function BoardPage() {
-  let boardId: string = "6389245c387211d70eef2af5";
+  let boardId: string = useAppSelector((state) => state.idClickedBoard.idBoradVal);
   const [columnModal, setColumnModal] = useState(false);
   const [refresh, setRefresh] = useState(999);
   let serverColumns: getColumnType[] = [];
