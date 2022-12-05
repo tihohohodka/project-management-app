@@ -97,8 +97,7 @@ export const signUpRequest = async () => {
         store.dispatch(nameInputValChange(''));
         store.dispatch(loginInputValChange(''));
         store.dispatch(passwordInputValChange(''));
-        openToast('Successful registration')
-        setTimeout(window.location.reload, 3000);
+        openToast('Successful registration');
       } else {
         openToast('Error ' + data.statusCode + ':\n' + data.message)
       }
@@ -130,8 +129,8 @@ export const signInRequest = async () => {
       store.dispatch(passwordInputValChange(''));
       store.dispatch(changeAuth(true));
       setTimeout(function(){
-        window.location.reload();
-      }, 3000);
+        openToast(`Hello ${localStorage.getItem("login")}`);
+      }, 4000);
     } else {
       openToast('Error ' + data.statusCode + ':\n' + data.message);
     }
