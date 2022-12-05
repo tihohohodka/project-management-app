@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { changeLang } from "../../features/reduxLang";
 import logo from "../../media/pics/logo.png";
 import { Routes, Route, Link } from "react-router-dom";
+import { modalviewChange } from '../../globalStore/boardsState';
 import "./header.css";
 import {
   useAppDispatch,
@@ -20,8 +21,10 @@ export function Header() {
   document.addEventListener("scroll", (event) => {
     if (window.pageYOffset >= 300) {
       document.querySelector("header")?.classList.add("scrolled");
+      document.querySelector(".header-logo")?.classList.add("scrolled");
     } else {
       document.querySelector("header")?.classList.remove("scrolled");
+      document.querySelector(".header-logo.scrolled")?.classList.remove("scrolled");
     }
   });
   return (
@@ -34,10 +37,13 @@ export function Header() {
         <div className="header-button-holder">
           {reduxLang.lang === "Russian" && (
             <>
-              <Link to="EditProfile">
+              <Link to="/MainRoute">
+                <div className="header-button">Главная страница</div>
+              </Link>
+              <Link to="/EditProfile">
                 <div className="header-button">Редактировать профиль</div>
               </Link>
-              <div className="header-button">Создать борду</div>
+              <div className="header-button" onClick={() => dispatch(modalviewChange('create'))}>Создать борду</div>
               <div className="header-button" onClick={logOut}>
                 Выйти
               </div>
@@ -46,8 +52,11 @@ export function Header() {
 
           {reduxLang.lang === "English" && (
             <>
+              <Link to="/MainRoute">
+                <div className="header-button">Main page</div>
+              </Link>
               <div className="header-button">Edit Profile</div>
-              <div className="header-button">Create new Board</div>
+              <div className="header-button" onClick={() => dispatch(modalviewChange('create'))}>Create new Board</div>
               <div className="header-button">Sign Out</div>
             </>
           )}

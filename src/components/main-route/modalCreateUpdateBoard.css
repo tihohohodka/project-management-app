@@ -1,0 +1,83 @@
+.dark-screen {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.modal-cr-upd-board{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  border-radius: 30px;
+  background-color: #8a2be2;
+  width: 300px;
+  height: 400px;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+
+.modal-cr-upd-board img {
+  width: 35px;
+  align-self: flex-end;
+  transition: 0.3s;
+}
+
+.modal-cr-upd-board img:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  filter: invert(47%) sepia(43%) saturate(10%) hue-rotate(59deg) brightness(99%) contrast(103%);
+}
+
+.modal-cr-upd-board form {
+  height: 225px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-cr-upd-board h3{
+  margin: 0 0 25px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.modal-cr-upd-board label,
+.modal-cr-upd-board input,
+.modal-cr-upd-board input::placeholder,
+.modal-cr-upd-board textarea,
+.modal-cr-upd-board textarea::placeholder {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 19px;
+}
+
+.modal-cr-upd-board textarea{
+  resize: none;
+}
+
+.create-cr-upd-button {
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 24px;
+  padding: 20px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.create-cr-upd-button:hover {
+  background-color: grey;
+}
+
+.modal-cr-upd-board .reject {
+  color: yellowgreen;
+}
