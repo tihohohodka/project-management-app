@@ -53,7 +53,7 @@ a{
   flex-direction: column;
   justify-content:space-between;
   margin-top: 200px;
-  min-height:calc(100vh - 200px);;
+  min-height:calc(100vh - 200px);
 }
 .background{
   width: 100%;
@@ -64,4 +64,18 @@ a{
   display: flex;
   justify-content: center;
   gap:10px;
+}
+
+@media (max-width: 1092px) {
+  .page-holder{
+    min-height:calc(100vh - 270px);
+    margin-top: 270px;
+  }
+}
+
+@media (max-width: 515px) {
+  .page-holder{
+    min-height:calc(100vh - 400px);
+    margin-top: 400px;
+  }
 }

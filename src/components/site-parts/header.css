@@ -24,7 +24,7 @@ h3{
 }
 header.scrolled{
   transition: 300ms;
-  height: 100px;
+  height: 145px;
 }
 .header-title-buttons{
   display: flex;
