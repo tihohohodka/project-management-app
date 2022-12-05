@@ -78,9 +78,24 @@ function App() {
             localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignUp />
           }
         />
-        <Route path="/EditProfile" element={<EditProfile />} />
-        <Route path="/Boards" element={<BoardPage />} />
-        <Route path="/MainRoute" element={<MainRoute />} />
+        <Route
+          path="/EditProfile"
+          element={
+            localStorage.getItem("token") ? <EditProfile />  : <Navigate to="/" />
+          }
+        />
+        <Route
+          path="/Boards"
+          element={
+            localStorage.getItem("token") ? <BoardPage />  : <Navigate to="/" />
+          }
+        />
+        <Route
+          path="/MainRoute"
+          element={
+            localStorage.getItem("token") ? <MainRoute />  : <Navigate to="/" />
+          }
+          />
       </Routes>
     </BrowserRouter>
   );
