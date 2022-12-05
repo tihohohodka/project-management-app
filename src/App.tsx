@@ -3,12 +3,11 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Footer } from "./components/site-parts/footer";
 import { Header } from "./components/site-parts/header";
-import SignInSignUp from "./components/signIn-signUp";
 import { Welcome } from "./components/welcome-page/welcome-page";
 import { EditProfile } from "./components/edit-profile";
 import SignUp from "./components/signIn-signUp/signUp";
 import SignIn from "./components/signIn-signUp/signIn";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ToastWindow from "./components/toast-window/toast-window";
 import {
   openToast,
@@ -18,10 +17,47 @@ import {
 import { changeAuth } from "./features/reduxAuth";
 import welcomePicture from "./media/pics/welcome-pic.png";
 import nickPhoto from "./media/pics/nick-photo.jpg";
+<<<<<<< HEAD
 import { BoardPage } from "./components/board-page/board-page";
+=======
+import MainRoute from './components/main-route/main-route';
+const FIFTEEN_MINUTES: number = 900000;
+
+>>>>>>> 8c396f5c0c12ff027724c226bbf2726f88e7ee98
 function App() {
   const dispatch = useAppDispatch();
+  const reduxAuth = useAppSelector((state) => state.auth);
+  async function tokenCheck() {
+    if (localStorage.getItem("token")) {
+      let res;
+      try {
+        res = await fetch(
+          "https://kanban-server-production.up.railway.app/users",
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+
+        if (res.ok != false) {
+          dispatch(changeAuth(true));
+        } else {
+          dispatch(changeAuth(false));
+          localStorage.clear();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      dispatch(changeAuth(false));
+      localStorage.clear();
+    }
+  }
+
   React.useEffect(() => {
+    setInterval(tokenCheck, FIFTEEN_MINUTES);
     if (localStorage.getItem("token")) {
       dispatch(changeAuth(true));
       openToast(`Hello ${localStorage.getItem("login")}`);
@@ -36,17 +72,21 @@ function App() {
         <Route
           path="/SignIn"
           element={
-            localStorage.getItem("token") ? <Navigate to="/" /> : <SignIn />
+            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignIn />
           }
         />
         <Route
           path="/SignUp"
           element={
-            localStorage.getItem("token") ? <Navigate to="/" /> : <SignUp />
+            localStorage.getItem("token") ? <Navigate to="/MainRoute" /> : <SignUp />
           }
         />
         <Route path="/EditProfile" element={<EditProfile />} />
+<<<<<<< HEAD
         <Route path="/Boards" element={<BoardPage />} />
+=======
+        <Route path="/MainRoute" element={<MainRoute />} />
+>>>>>>> 8c396f5c0c12ff027724c226bbf2726f88e7ee98
       </Routes>
     </BrowserRouter>
   );

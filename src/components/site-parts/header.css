@@ -51,4 +51,10 @@ box-shadow: inset 2px 2px 5px black;
 }
 .header-logo{
   height: 150px;
+  transition: 300ms;
+}
+
+.header-logo.scrolled{
+  height: 85px;
+  transition: 300ms;
 }
