@@ -48,7 +48,7 @@ export function BoardPage() {
   }
 
   const [columnModal, setColumnModal] = useState(false);
-  const [taskModal, setTaskModal] = useState(false);
+  const [taskModal, setTaskModal] = useState("false");
   const [columnModalChange, setColumnModalChange] = useState(false);
   const [refresh, setRefresh] = useState(999);
   let serverColumns: getColumnType[] = [];
@@ -174,7 +174,7 @@ export function BoardPage() {
     console.log(bodyRequest);
     try {
       const res = await fetch(
-        `https://kanban-server-production.up.railway.app/boards/${boardId}/columns/${column}/tasks`,
+        `https://kanban-server-production.up.railway.app/boards/${boardId}/columns/${col.id}/tasks`,
         {
           method: "POST",
           headers: {
@@ -469,7 +469,7 @@ export function BoardPage() {
                 <div className="column-holder" key={col.id}>
                   <Column col={col} key={col.id} />
 
-                  {taskModal && (
+                  {taskModal === col.id && (
                     <div className="modal-window-column ">
                       <label htmlFor="TaskName">Title:</label>
                       <input
@@ -485,21 +485,24 @@ export function BoardPage() {
                       ></input>
                       <div className="modal-button-holder">
                         <button
-                          onClick={() => {
+                          id={col.id}
+                          onClick={(e) => {
                             console.log("value " + input1value.current!.value);
                             console.log(col);
+                            const btnID = e.target as HTMLElement;
+                            console.log(btnID.id);
                             setTimeout(async () => {
                               console.log("start");
-
+                              console.log(e.currentTarget);
                               await createTask(
                                 input1value.current!.value,
-                                col.id,
+                                btnID.id,
                                 input2value.current!.value,
                                 "user",
                                 col
                               );
 
-                              setTaskModal(false);
+                              setTaskModal("false");
                             });
                           }}
                         >
@@ -507,7 +510,7 @@ export function BoardPage() {
                         </button>
                         <button
                           onClick={() => {
-                            setTaskModal(false);
+                            setTaskModal("false");
                           }}
                         >
                           Cancel
@@ -518,7 +521,7 @@ export function BoardPage() {
                   <button
                     id={col.id + "btn"}
                     onClick={async () => {
-                      setTaskModal(true);
+                      setTaskModal(col.id);
                     }}
                   >
                     Create Task

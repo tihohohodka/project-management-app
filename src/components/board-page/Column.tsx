@@ -154,6 +154,7 @@ export const Column: React.FC<ColumnProps> = ({ col: { list, id, title } }) => {
                 />
               ))}
             {provided.placeholder}
+
             {modal && (
               <div className="modal-window">
                 <p>Вы уверены, что хотите удалить колонку?</p>
