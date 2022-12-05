@@ -103,15 +103,10 @@ box-shadow: inset 2px 2px 5px black;
   .header-title-buttons h1 {
     width: 220px;
   }
-  header.scrolled .header-button-holder{
-    flex-wrap: wrap;
-    width: 395px;
-    flex-direction: row;
-  }
   header .header-button-holder {
     flex-direction: column;
   }
   header.scrolled {
-    height: 260px;
+    height: 365px;
   }
 }
