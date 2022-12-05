@@ -17,9 +17,13 @@ import {
 import { changeAuth } from "./features/reduxAuth";
 import welcomePicture from "./media/pics/welcome-pic.png";
 import nickPhoto from "./media/pics/nick-photo.jpg";
+<<<<<<< HEAD
+import { BoardPage } from "./components/board-page/board-page";
+=======
 import MainRoute from './components/main-route/main-route';
 const FIFTEEN_MINUTES: number = 900000;
 
+>>>>>>> 8c396f5c0c12ff027724c226bbf2726f88e7ee98
 function App() {
   const dispatch = useAppDispatch();
   const reduxAuth = useAppSelector((state) => state.auth);
@@ -78,7 +82,11 @@ function App() {
           }
         />
         <Route path="/EditProfile" element={<EditProfile />} />
+<<<<<<< HEAD
+        <Route path="/Boards" element={<BoardPage />} />
+=======
         <Route path="/MainRoute" element={<MainRoute />} />
+>>>>>>> 8c396f5c0c12ff027724c226bbf2726f88e7ee98
       </Routes>
     </BrowserRouter>
   );
