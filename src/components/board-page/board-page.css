@@ -8,7 +8,7 @@ h2{
 .modal-window{
   position: static;
   width:90%;
-   border: solid black;
+   border: solid black 1px;
    background-color: aliceblue;
    transform: translate(2.5%, 0%);
    text-align: center;
@@ -17,4 +17,27 @@ h2{
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+.modal-window-column{
+  position: absolute;
+  height: 200px;
+  width:20%;
+   border: solid black 1px;
+   background-color: aliceblue;
+   transform: translate(2.5%, 0%);
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap:20px;
+   left: 50%;
+top: 50%;
+transform:translate(-50%, -50%);
+
+}
+.modal-window-column button{
+  width: 120px;
+}
+.modal-window-column input{
+  width: 200px;
 }

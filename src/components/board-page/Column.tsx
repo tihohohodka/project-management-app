@@ -27,7 +27,6 @@ const StyledColumn = styled("div", {
   display: "flex",
   flexDirection: "column",
   marginTop: 8,
-
   h2: {
     margin: 0,
     padding: "0 16px",
@@ -42,6 +41,7 @@ const StyledList = styled("div", {
   flexDirection: "column",
   flexGrow: 1,
   marginTop: 8,
+  width: "250px",
 });
 
 export const Column: React.FC<ColumnProps> = ({ col: { list, id, title } }) => {

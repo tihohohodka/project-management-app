@@ -7,12 +7,12 @@ import { Column, TaskProps } from "./Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { styled } from "../stitches.config";
 const StyledColumns = styled("div", {
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
+  display: "flex",
   margin: "10vh auto",
-  width: "80%",
-  height: "80vh",
+  marginleft: "15px",
+  height: "60vh",
   gap: "8px",
+  overflowX: "scroll",
 });
 
 type columnType = {
@@ -28,6 +28,9 @@ type getColumnType = {
 };
 export function BoardPage() {
   let boardId: string = "6389245c387211d70eef2af5";
+  const [columnModal, setColumnModal] = useState(false);
+  const [refresh, setRefresh] = useState(999);
+  const [columnCreation, setColumnCreastion] = useState(0);
   let serverColumns: getColumnType[] = [];
   useEffect(() => {
     setTimeout(async () => {
@@ -45,6 +48,7 @@ export function BoardPage() {
         console.log(serverColumns);
         if (serverColumns[0]) {
           for (let i = 0; i < serverColumns.length; i++) {
+            setRefresh(i);
             try {
               const res2 = await fetch(
                 `https://kanban-server-production.up.railway.app/boards/${boardId}/columns/${serverColumns[i]._id}/tasks`,
@@ -70,11 +74,12 @@ export function BoardPage() {
             }
           }
         }
+        setRefresh(refresh + 1);
       } catch (err) {
         console.log(err);
       }
     }, 0);
-  }, []);
+  }, [columnCreation]);
 
   async function createColumn(title: string) {
     const bodyRequest = {
@@ -93,9 +98,11 @@ export function BoardPage() {
           body: JSON.stringify(bodyRequest),
         }
       );
+      setColumnModal(false);
     } catch (err) {
       console.log(err);
     }
+    setColumnCreastion(columnCreation + 1);
   }
   async function createTask(
     title: string,
@@ -130,7 +137,7 @@ export function BoardPage() {
       console.log(err);
     }
   }
-  const [refresh, setRefresh] = useState(0);
+
   let initialColumns: Record<string, columnType> = {};
 
   const [columns, setColumns] = useState(initialColumns);
@@ -209,6 +216,42 @@ export function BoardPage() {
 
   return (
     <>
+      <button
+        onClick={() => {
+          setColumnModal(true);
+        }}
+      >
+        Create column
+      </button>
+      {columnModal && (
+        <div className="modal-window-column ">
+          <label htmlFor="ColumnName">Title:</label>
+          <input type="text" id="columnModalTitleInput"></input>
+          <div className="modal-button-holder">
+            <button
+              onClick={async () => {
+                const input: HTMLInputElement = document.querySelector(
+                  "#columnModalTitleInput"
+                ) as HTMLInputElement;
+
+                if (input) {
+                  await createColumn(input.value);
+                }
+              }}
+            >
+              create Column
+            </button>
+            <button
+              onClick={() => {
+                setColumnModal(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
       <DragDropContext onDragEnd={onDragEnd}>
         <StyledColumns>
           {Object.values(columns).map((col) => (
@@ -216,19 +259,13 @@ export function BoardPage() {
           ))}
         </StyledColumns>
       </DragDropContext>
-      <button
-        onClick={async () => {
-          await createColumn("3");
-        }}
-      >
-        create Column
-      </button>
+
       <button
         onClick={async () => {
           setRefresh(refresh + 1);
           await createTask(
-            "title5",
-            "638bad4d387211d70eef759c",
+            "title56",
+            "638d7bf1387211d70eef79bd",
             "description",
             "User"
           );

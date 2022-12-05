@@ -20,6 +20,8 @@ const StyledItem = styled("div", {
   padding: "4px 8px",
   transition: "background-color .8s ease-out",
   marginTop: 8,
+  display: "flex",
+  justifyContent: "space-between",
   ":hover": {
     backgroundColor: "#fff",
     transition: "background-color .1s ease-in",
@@ -35,7 +37,8 @@ const Task: React.FC<TaskProps> = (a: TaskProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {a.text}
+          <div>{a.title}</div>
+          <div>×</div>
         </StyledItem>
       )}
     </Draggable>
