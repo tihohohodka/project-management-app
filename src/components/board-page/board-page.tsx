@@ -17,6 +17,8 @@ import { styled } from "../stitches.config";
 import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exceptions";
 import { Footer } from "../site-parts/footer";
 import { Header } from "../site-parts/header";
+import { idBoardChange } from "../../globalStore/idClickedBoardState";
+import changeBoardsInfAsync from "../../globalStore/asyncChangeBoards";
 const StyledColumns = styled("div", {
   display: "flex",
   margin: "0px 15px",
@@ -40,6 +42,11 @@ export function BoardPage() {
   let boardId: string = useAppSelector(
     (state) => state.idClickedBoard.idBoradVal
   );
+  const dispatch = useAppDispatch();
+  if (boardId != "") {
+    localStorage.setItem("boardId", boardId);
+  }
+
   const [columnModal, setColumnModal] = useState(false);
   const [taskModal, setTaskModal] = useState(false);
   const [columnModalChange, setColumnModalChange] = useState(false);
@@ -50,10 +57,10 @@ export function BoardPage() {
   const input1value = useRef<HTMLInputElement>(null);
   const input2value = useRef<HTMLInputElement>(null);
   const [columns, setColumns] = useState(initialColumns);
-  const boardsRedux = useAppSelector((state) => state.idClickedBoard);
-  const dispatch = useAppDispatch();
+
   const taskLoading = useAppSelector((state) => state.taskLoading.loading);
   useEffect(() => {
+    dispatch(idBoardChange(localStorage.getItem("boardId")));
     setLoadingColumns(true);
     setTimeout(async () => {
       try {
