@@ -397,6 +397,7 @@ export function BoardPage() {
             }
           );
           const res = await data.json();
+          console.log(res);
           newEndList[j]._id = res._id;
         } catch (err) {
           console.log(err);

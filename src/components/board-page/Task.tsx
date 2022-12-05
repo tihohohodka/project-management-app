@@ -56,6 +56,7 @@ const Task: React.FC<TaskProps> = (a: TaskProps) => {
           <div>loading...</div>
         ) : (
           <StyledItem
+            key={a._id + a.index}
             id={a._id}
             ref={provided.innerRef}
             {...provided.draggableProps}
