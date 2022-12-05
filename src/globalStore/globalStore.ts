@@ -74,9 +74,8 @@ export interface ressign {
   message: string;
 }
 
-export const signUpRequest = async (evt: Event) => {
+export const signUpRequest = async () => {
 
-  evt.preventDefault();
   const bodyRequest = {
     "name": store.getState().registrwindw.nameInputVal,
     "login": store.getState().registrwindw.loginInputVal,
@@ -106,8 +105,7 @@ export const signUpRequest = async (evt: Event) => {
     }
 }
 
-export const signInRequest = async (evt: Event) => {
-  evt.preventDefault();
+export const signInRequest = async () => {
   const bodyRequest = {
     login: store.getState().registrwindw.loginInputVal,
     password: store.getState().registrwindw.passwordInputVal

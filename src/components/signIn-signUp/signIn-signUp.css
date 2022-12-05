@@ -29,8 +29,8 @@
 .loginInp,
 .passwordInp {
   display: flex;
-  justify-content: space-between;
-  margin: 0 auto 20px auto;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modalsign input,
@@ -43,6 +43,7 @@
 .modalsign input {
   border-radius: 0px;
   border: none;
+  width: 317px;
 }
 
 .narrow-button {
@@ -89,4 +90,14 @@
 
 .href-sign-up:hover {
   color: #ffffff;
+}
+
+.wrong-valid{
+  width: 317px;
+  height: 42px;
+  margin: 0 auto 7px auto;
+}
+
+.wrong-valid span{
+  font-size: 13px;
 }
