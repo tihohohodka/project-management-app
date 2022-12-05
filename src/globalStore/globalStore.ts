@@ -278,7 +278,6 @@ export function logOut() {
   localStorage.removeItem('token');
   localStorage.removeItem('login');
   localStorage.clear();
-  window.location.reload();
 }
 
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
