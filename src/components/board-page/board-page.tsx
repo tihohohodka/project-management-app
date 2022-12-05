@@ -37,6 +37,9 @@ type getColumnType = {
   boardId: string;
 };
 export function BoardPage() {
+  let boardId: string = useAppSelector(
+    (state) => state.idClickedBoard.idBoradVal
+  );
   const [columnModal, setColumnModal] = useState(false);
   const [taskModal, setTaskModal] = useState(false);
   const [columnModalChange, setColumnModalChange] = useState(false);
@@ -50,8 +53,6 @@ export function BoardPage() {
   const boardsRedux = useAppSelector((state) => state.idClickedBoard);
   const dispatch = useAppDispatch();
   const taskLoading = useAppSelector((state) => state.taskLoading.loading);
-  //let boardId: string = boardsRedux.idBoradVal;
-  let boardId = "6389245c387211d70eef2af5";
   useEffect(() => {
     setLoadingColumns(true);
     setTimeout(async () => {
