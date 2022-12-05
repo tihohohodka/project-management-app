@@ -30,8 +30,11 @@ export function BoardPage() {
   let boardId: string = "6389245c387211d70eef2af5";
   const [columnModal, setColumnModal] = useState(false);
   const [refresh, setRefresh] = useState(999);
-  const [columnCreation, setColumnCreastion] = useState(0);
   let serverColumns: getColumnType[] = [];
+
+  let initialColumns: Record<string, columnType> = {};
+
+  const [columns, setColumns] = useState(initialColumns);
   useEffect(() => {
     setTimeout(async () => {
       try {
@@ -48,7 +51,7 @@ export function BoardPage() {
         console.log(serverColumns);
         if (serverColumns[0]) {
           for (let i = 0; i < serverColumns.length; i++) {
-            setRefresh(i);
+            setRefresh(refresh + i);
             try {
               const res2 = await fetch(
                 `https://kanban-server-production.up.railway.app/boards/${boardId}/columns/${serverColumns[i]._id}/tasks`,
@@ -79,7 +82,7 @@ export function BoardPage() {
         console.log(err);
       }
     }, 0);
-  }, [columnCreation]);
+  }, [columnModal]);
 
   async function createColumn(title: string) {
     const bodyRequest = {
@@ -98,11 +101,39 @@ export function BoardPage() {
           body: JSON.stringify(bodyRequest),
         }
       );
+      try {
+        const data = await fetch(
+          `https://kanban-server-production.up.railway.app/boards/${boardId}/columns`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const res = await data.json();
+        if (res[0]) {
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].title === title) {
+              console.log("res:");
+              console.log(res[i]);
+              const newColumn = {
+                id: res[i]._id,
+                list: [],
+                title: res[i].title,
+              };
+              setColumns((state) => ({ ...state, [res[i]._id]: newColumn }));
+            }
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
       setColumnModal(false);
     } catch (err) {
       console.log(err);
     }
-    setColumnCreastion(columnCreation + 1);
   }
   async function createTask(
     title: string,
@@ -137,10 +168,6 @@ export function BoardPage() {
       console.log(err);
     }
   }
-
-  let initialColumns: Record<string, columnType> = {};
-
-  const [columns, setColumns] = useState(initialColumns);
 
   const onDragEnd = ({ source, destination }: DropResult) => {
     // Make sure we have a valid destination

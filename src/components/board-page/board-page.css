@@ -22,6 +22,7 @@ h2{
   position: absolute;
   height: 200px;
   width:20%;
+  min-width: 250px;
    border: solid black 1px;
    background-color: aliceblue;
    transform: translate(2.5%, 0%);
