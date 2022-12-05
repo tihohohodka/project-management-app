@@ -15,7 +15,7 @@
 }
 @media (max-width: 515px) {
   .boards-container{
-    min-height: calc(100vh - 550px);
+    min-height: calc(100vh - 450px);
   }
 }
 

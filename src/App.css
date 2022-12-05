@@ -75,7 +75,7 @@ a{
 
 @media (max-width: 515px) {
   .page-holder{
-    min-height:calc(100vh - 400px);
-    margin-top: 400px;
+    min-height: calc(100vh - 300px);
+    margin-top: 300px;
   }
 }

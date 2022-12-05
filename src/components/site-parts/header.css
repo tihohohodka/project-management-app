@@ -98,15 +98,19 @@ box-shadow: inset 2px 2px 5px black;
 
 @media (max-width: 515px) {
   header{
-    height: 400px;
+    height: 300px;
+  }
+  header.scrolled .header-logo {
+    height: 60px;
   }
   .header-title-buttons h1 {
+    display: none;
     width: 220px;
   }
   header .header-button-holder {
     flex-direction: column;
   }
   header.scrolled {
-    height: 365px;
+    height: 290px;
   }
 }
