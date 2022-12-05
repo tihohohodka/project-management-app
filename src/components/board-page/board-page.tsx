@@ -171,7 +171,6 @@ export function BoardPage() {
       userId: userId,
       users: [],
     };
-    console.log(bodyRequest);
     try {
       const res = await fetch(
         `https://kanban-server-production.up.railway.app/boards/${boardId}/columns/${col.id}/tasks`,
@@ -237,7 +236,6 @@ export function BoardPage() {
       // Then create a new copy of the column object
 
       for (let i = 0; i < start.list.length; i++) {
-        console.log(start.list);
         dispatch(taskLoadingChange(true));
         try {
           await fetch(
@@ -297,7 +295,6 @@ export function BoardPage() {
         (_: any, idx: number) => idx !== source.index
       );
       for (let i = 0; i < start.list.length; i++) {
-        console.log(start.list);
         dispatch(taskLoadingChange(true));
         try {
           await fetch(
@@ -354,8 +351,6 @@ export function BoardPage() {
 
       // Insert the item into the end list
       newEndList.splice(destination.index, 0, start.list[source.index]);
-      console.log("newEndlength" + newEndList.length);
-      console.log(end.list);
       if (end.list[0]) {
         for (let i = 0; i < end.list.length; i++) {
           try {
@@ -382,8 +377,7 @@ export function BoardPage() {
           userId: "user",
           users: [],
         };
-        console.log("bodyRequest");
-        console.log(bodyRequest);
+
         try {
           const data = await fetch(
             `https://kanban-server-production.up.railway.app/boards/${boardId}/columns/${end.id}/tasks`,
@@ -397,7 +391,6 @@ export function BoardPage() {
             }
           );
           const res = await data.json();
-          console.log(res);
           newEndList[j]._id = res._id;
         } catch (err) {
           console.log(err);
@@ -488,13 +481,9 @@ export function BoardPage() {
                         <button
                           id={col.id}
                           onClick={(e) => {
-                            console.log("value " + input1value.current!.value);
-                            console.log(col);
                             const btnID = e.target as HTMLElement;
-                            console.log(btnID.id);
+
                             setTimeout(async () => {
-                              console.log("start");
-                              console.log(e.currentTarget);
                               await createTask(
                                 input1value.current!.value,
                                 btnID.id,

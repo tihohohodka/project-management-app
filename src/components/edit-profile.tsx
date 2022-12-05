@@ -63,7 +63,6 @@ export function EditProfile() {
       login: loginInputVal,
       password: passwordInputVal,
     };
-    console.log(JSON.stringify(bodyRequest));
     try {
       await fetch(
         `https://kanban-server-production.up.railway.app/users/${profile._id}`,

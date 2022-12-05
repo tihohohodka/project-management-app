@@ -75,9 +75,6 @@ export const Column: React.FC<ColumnProps> = ({ col: { list, id, title } }) => {
       console.log(err);
     }
   }
-  useEffect(() => {
-    console.log(list);
-  });
 
   return (
     <Droppable droppableId={id}>
@@ -102,7 +99,6 @@ export const Column: React.FC<ColumnProps> = ({ col: { list, id, title } }) => {
                 <div
                   className="exit-btn"
                   onClick={async () => {
-                    console.log("exit");
                     setTitleChange(false);
 
                     try {
